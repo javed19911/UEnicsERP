@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:UControl/res/string/Strings.dart';
-import 'package:UControl/ui/base/BaseActivity.dart';
+import 'package:UEnicsERP/res/string/Strings.dart';
+import 'package:UEnicsERP/ui/base/BaseActivity.dart';
 
 import '../vmLogin.dart';
 

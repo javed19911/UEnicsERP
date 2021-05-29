@@ -1,6 +1,6 @@
-# intello_track_image_upload_app
+# UEnics ERP
 
-A new Flutter application.
+UEnics ERP.
 
 ## Getting Started
 

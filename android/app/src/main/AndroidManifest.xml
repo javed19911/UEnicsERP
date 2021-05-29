@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.intello.intello_track_image_upload_app">
+    package="com.uenics.erp">
    <application
-        android:label="intello_track_image_upload_app"
+        android:label="UEnics ERP"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
