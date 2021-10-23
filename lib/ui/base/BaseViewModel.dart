@@ -6,6 +6,17 @@ import 'package:praman_flutter/data/DataManager.dart';*/
 
 abstract class BaseViewModel<N> extends ChangeNotifier {
   bool _mIsLoading = false;
+  late AppDataManager _dataManager;
+  late BuildContext _buildContext;
+
+  set buildContext(BuildContext value) {
+    _buildContext = value;
+    _dataManager.buildContext = value;
+  }
+
+  BuildContext get buildContext {
+    return _buildContext;
+  }
 
   N? _navigator;
 
@@ -14,8 +25,6 @@ abstract class BaseViewModel<N> extends ChangeNotifier {
   set navigator(N? value) {
     _navigator = value;
   }
-
-  late DataManager _dataManager;
 
   BaseViewModel() {
     _dataManager = AppDataManager();

@@ -1,5 +1,5 @@
 class Strings {
-  static String app_name = "INTELLO LABS";
-  static String welcomeMessage = "INTELLO LABS";
+  static String app_name = "UEnics ERP";
+  static String welcomeMessage = "UEnics ERP";
   static String login = "Login";
 }

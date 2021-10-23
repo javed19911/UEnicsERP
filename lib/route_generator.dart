@@ -1,3 +1,11 @@
+import 'package:UEnicsERP/data/models/mMenu.dart';
+import 'package:UEnicsERP/ui/Accounts/AccountActivity.dart';
+import 'package:UEnicsERP/ui/Accounts/vmAccount.dart';
+import 'package:UEnicsERP/ui/country/CountryActivity.dart';
+import 'package:UEnicsERP/ui/country/vmCountry.dart';
+import 'package:UEnicsERP/ui/dashboard/DashboardActivity.dart';
+import 'package:UEnicsERP/ui/dashboard/vmDashboard.dart';
+import 'package:UEnicsERP/ui/splashScreen/splashActivity.dart';
 import 'package:flutter/material.dart';
 import './ui/login/loginActivity.dart';
 import './ui/login/vmLogin.dart';
@@ -10,10 +18,36 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
+        //   return MaterialPageRoute(builder: (_) => SplashActivity());
+        // case '/login':
         return MaterialPageRoute(
             builder: (_) => ChangeNotifierProvider(
                   create: (context) => vmLogin(),
                   child: LoginActivity(),
+                ));
+
+      case '/dashboard':
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                  create: (context) => vmDashboard(),
+                  child: DashboardActivity(),
+                ));
+      case '/accounts':
+        if (args is Menu) {
+          return MaterialPageRoute(
+              builder: (_) => ChangeNotifierProvider(
+                    create: (context) => vmAccount(),
+                    child: AccountActivity(
+                      menu: args,
+                    ),
+                  ));
+        }
+        return _errorRoute();
+      case '/country':
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                  create: (context) => vmCountry(),
+                  child: CountryActivity(),
                 ));
 
       default:

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import 'language.dart';
 
 class LanguageEn extends Language {
@@ -10,7 +8,7 @@ class LanguageEn extends Language {
   String get passwordLabel => "Enter password";
 
   @override
-  String get loginLabel => "Login";
+  String get loginLabel => "LOGIN";
 
   @override
   String get logOutLabel => "Logout";
@@ -28,7 +26,10 @@ class LanguageEn extends Language {
   String get selectedLanguage => 'English';
 
   @override
-  String get labelSelectItems => 'Select Items';
+  String get selectedLanguageCode => 'en';
+
+  @override
+  String get labelSelectItems => 'Select Commodity';
 
   @override
   String get labelClaimOffer => 'Claim Offer';
@@ -54,7 +55,6 @@ class LanguageEn extends Language {
   String get labelSave => 'Save';
 
   @override
-  // TODO: implement labelAddAnotherPhotos
   String get labelAddAnotherPhotos => 'Add Another Photo';
 
   @override
@@ -140,6 +140,9 @@ class LanguageEn extends Language {
   String get addAndCreateLot => 'Add & Create Lot';
 
   @override
+  String get updateLot => 'Update Lot';
+
+  @override
   String get required => 'required';
 
   @override
@@ -208,8 +211,7 @@ class LanguageEn extends Language {
 
   @override
   String get referDescription =>
-      'Refer a wholesaler of onion, potato, tomato, garlic, ginger or pomegranate on Praman and earn'
-      ' ₹50 when they create a wholesale lot! They earn ₹50 too.';
+      'Refer a wholesaler of onion, potato, tomato, garlic, ginger or pomegranate on Praman and earn ₹50 when they create a wholesale lot! They earn ₹50 too.';
 
   @override
   String get shareWithContacts => 'Share with contacts';
@@ -276,4 +278,326 @@ class LanguageEn extends Language {
 
   @override
   String get yesterdayLots => "Yesterday's lot";
+
+  @override
+  String get availableForPurchase => 'Available for purchase';
+
+  @override
+  String get quality => 'Quality';
+
+  @override
+  String get rate => 'Rate';
+
+  @override
+  String get wholeSale => 'Wholesale';
+
+  @override
+  String get labelContinue => 'Continue';
+
+  @override
+  String get views => 'views';
+
+  @override
+  String get generatingQualityReport => 'We are generating your quality report';
+
+  @override
+  String get sellerContact => "Seller Contact";
+
+  @override
+  String get sellerName => "Seller Name";
+
+  @override
+  String get firstName => 'First Name';
+
+  @override
+  String get lastName => 'Last Name';
+
+  @override
+  String get loadingFeed => 'Loading Feed';
+
+  @override
+  String get lotNotAvailable => 'No lot available';
+
+  @override
+  String get pleaseEnterLastName => 'Please enter last name';
+
+  @override
+  String get pleaseEnterFirstName => 'Please enter first name';
+
+  @override
+  String get type => 'type';
+
+  @override
+  String get pleaseEnterSellerContact => 'Please enter seller contact';
+
+  @override
+  String get pleaseEnterSellerName => 'Please enter seller Name';
+
+  @override
+  String get pleaseEnterLotQuantity => 'Please enter lot quantity';
+
+  @override
+  String get pleaseEnterLotPrice => 'Please enter lot price';
+
+  @override
+  String get uploading => 'Uploading';
+
+  @override
+  String get processing => 'Processing';
+
+  @override
+  String get fetchingLocation => 'Please wait while we fetch your location';
+
+  @override
+  String get noImageAdded => 'No image added to update';
+
+  @override
+  String get pleaseUpdateYourAppForTheLatestFeatures =>
+      'Please update your app for the latest features';
+
+  @override
+  String get update => 'update';
+
+  @override
+  String get updateAvailableOnAppStore => 'Update available on App Store';
+
+  @override
+  String get updateAvailableOnPlayStore => 'Update available on Play Store';
+
+  @override
+  String get markIncorrect => 'Marked incorrect';
+
+  @override
+  String get labelPhoto => 'Photo';
+
+  @override
+  String get labelReportUrl => "Report";
+
+  @override
+  String quantityShouldBeGraterThen(String minQuantity) =>
+      'Quantity should be greater than $minQuantity kg';
+
+  @override
+  String quantityShouldBeLessThen(quantity) =>
+      'Quantity should be less than $quantity kg';
+
+  /*@override
+  String get priceShouldBeGraterThen => 'Price should be grater then 0';*/
+
+  @override
+  String get quantityCanNotBe0 => 'Quantity cannot be 0 kg';
+
+  @override
+  String get acceptTermsAndCondition => 'Accept terms and conditions';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get pramanTermsAndCondition => 'Praman Terms & Conditions';
+
+  @override
+  String get termsConditionDescription =>
+      'Please read and accept Praman Terms & Conditions to experience the app';
+
+  @override
+  String get pleaseAcceptTermsAndConditionToContinue =>
+      'Please accept terms and condition to continue';
+
+  @override
+  String get shareUpdateLotDetailsWithYourContacts =>
+      'Share update lot details with your contacts';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get requestCameraPermissionTile =>
+      "\"Praman\" Would Like to Access Your Camera";
+
+  @override
+  String get requestCameraPermissionDescription =>
+      "Praman will use your camera to take image for quality analysis";
+
+  @override
+  String get requestLocationPermissionTile =>
+      "Praman Would Like to Access Your Location";
+
+  @override
+  String get requestLocationPermissionDescription =>
+      "Praman will use your location to fetch City and State";
+
+  @override
+  String get pleaseAddPhotoToContinue => 'Please add some photos to continue';
+
+  @override
+  String get badPhoto => "Bad Photo";
+
+  @override
+  String get appOutDated => "App update available.";
+
+  @override
+  String get checkYourInternetConnection => "Check your Internet connection";
+
+  @override
+  String get unableToPerformRequest => "Unable to perform request!";
+
+  @override
+  String get invalidOTP => "Please enter valid OTP";
+
+  @override
+  String get invalidPhoneNumber => "Please enter valid mobile number";
+
+  @override
+  String get pleaseEnterDeliveryAddress => 'Please enter delivery address';
+
+  @override
+  String get pleaseEnterPrice => 'Please enter price';
+
+  @override
+  String get pleaseEnterQuantity => 'Please enter quantity';
+
+  @override
+  String priceShouldLessThan(String price) {
+    return 'Price should be less than $price';
+  }
+
+  @override
+  String priceShouldBeGraterThen(String price) {
+    return 'Price must be greater then $price';
+  }
+
+  @override
+  String minimumQuantityIs(String commodity, String minQuantity) {
+    return 'Minimum $commodity quantity is $minQuantity kg';
+  }
+
+  @override
+  String get requestContactsPermissionDescription =>
+      'Praman will use your contacts to update buyers when you create new lot';
+
+  @override
+  String get requestContactsPermissionTile =>
+      "\"Praman\" Would Like to Access Your Contacts";
+
+  @override
+  String get auctionHistory => "Auction History";
+
+  @override
+  String get auctioneer => "Auctioneer";
+
+  @override
+  String get bidHigherToWinThisLot => "Bid higher to win this lot!";
+
+  @override
+  String get dashboard => "Dashboard";
+
+  @override
+  String get highestBid => "Highest bid";
+
+  @override
+  String get loggedInAs => "Logged in as";
+
+  @override
+  String get noAuctionAvailable => "No Auction Available";
+
+  @override
+  String get noAuctionsHaveBeenScheduled => "No auctions have been scheduled";
+
+  @override
+  String get photos => "PHOTOS";
+
+  @override
+  String get pleaseBidHigherToWinThisLot => "Please bid higher to win this lot";
+
+  @override
+  String get registerForAuction => "Register for Auction";
+
+  @override
+  String get registeredAuctions => "REGISTERED AUCTIONS";
+
+  @override
+  String get startBid => "Start Bid";
+
+  @override
+  String get viewPhoto => "View Photo";
+
+  @override
+  String get youAreTheHighestBidder => "You are the highest bidder!";
+
+  @override
+  String get youHaveNotRegisteredForThisAuction =>
+      "You have not registered for this auction";
+
+  @override
+  String get yourBid => "Your bid";
+
+  @override
+  String get registeredForAuction => "Registered for Auction";
+
+  @override
+  String get or => "OR";
+
+  @override
+  String get placeBid => "Place bid";
+
+  @override
+  String get bid => "Bid";
+
+  @override
+  String get cancelRegistration => "CANCEL REGISTRATION";
+
+  @override
+  // TODO: implement toHighestBid
+  String get toHighestBid => "to Highest Bid";
+
+  @override
+  // TODO: implement auctionStartIn
+  String get auctionStartIn => "AUCTION STARTS IN";
+
+  @override
+  String get auctions => "Auctions";
+
+  @override
+  String get auction => "Auction";
+
+  @override
+  String get auctionsStartIn => "AUCTIONS STARTS IN";
+
+  @override
+  String get actualPaymentValueWillBe => "Actual payment value will be";
+
+  @override
+  String get platformCharges => "Platform Charges";
+
+  @override
+  String get totalValue => "Total Value";
+
+  @override
+  String get noAuctionHistoryAvailable => "No Auction History Available";
+
+  @override
+  String get pleaseWait => "Please Wait";
+
+  @override
+  String get whileYourAuctionHistoryIsBeingFetched =>
+      "While your auctions history is being fetched";
+
+  @override
+  String get whileAuctionsIsBeingFetched => "While auctions is being fetched";
+
+  @override
+  String shouldGreaterThenValue({required String text, required String value}) {
+    return '$text should be greater then $value';
+  }
+
+  @override
+  String shouldLessThenValue({required String text, required String value}) {
+    return '$text should be less then $value';
+  }
+
+  @override
+  String valueCanNotBeEmpty({required String text}) {
+    return '$text can not be empty';
+  }
 }

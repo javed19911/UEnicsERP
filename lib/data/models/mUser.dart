@@ -1,47 +1,71 @@
+import 'package:UEnicsERP/data/models/mUserDetails.dart';
+
 class mUser {
-  int? _id;
-  String? _email;
-  String? _authenticationToken;
-  String? _phoneNumber;
-  String? _userType;
+  late int _id;
+  late String _first_name;
+  late String? _last_name;
+  late mUserDetails? _user_details;
+  late String _code;
 
-  int? get id => _id;
+  int get id => _id;
 
-  String? get email => _email;
+  String get firstName => _first_name;
 
-  String? get authenticationToken => _authenticationToken;
+  String? get lastName => _last_name;
 
-  String? get phoneNumber => _phoneNumber;
+  mUserDetails? get userDetails => _user_details;
 
-  String? get userType => _userType;
+  String get code => _code;
+
+  set id(int value) {
+    _id = value;
+  }
+
+  set firstName(String value) {
+    _first_name = value;
+  }
+
+  set lastName(String? value) {
+    _last_name = value;
+  }
+
+  set userDetails(mUserDetails? value) {
+    _user_details = value;
+  }
+
+  set code(String value) {
+    _code = value;
+  }
 
   mUser.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
-    if (json['email'] != null && json['email'] != "null")
-      _email = json['email'];
-    else
-      _email = "";
 
-    _authenticationToken = json['authentication_token'];
-
-    if (json['phone_number'] != null && json['phone_number'] != "null")
-      _phoneNumber = json['phone_number'];
+    if (json['first_name'] != null && json['first_name'] != "null")
+      _first_name = json['first_name'];
     else
-      _phoneNumber = "";
+      _first_name = "";
 
-    if (json['user_type'] != null && json['user_type'] != "null")
-      _userType = json['user_type'];
+    if (json['last_name'] != null && json['last_name'] != "null")
+      _last_name = json['last_name'];
     else
-      _userType = "";
+      _last_name = "";
+
+    if (json['code'] != null && json['code'] != "null")
+      _code = json['code'];
+    else
+      _code = "";
+
+    if (json['details'] != null && json['details'] != "null")
+      _user_details = mUserDetails.fromJson(json['details']);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this._id;
-    data['email'] = this._email;
-    data['authentication_token'] = this._authenticationToken;
-    data['phone_number'] = this._phoneNumber;
-    data['user_type'] = this._userType;
+    data['first_name'] = this._first_name;
+    data['last_name'] = this._last_name;
+    data['code'] = this._code;
+    data['details'] = this._user_details?.toJson();
     return data;
   }
 }

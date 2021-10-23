@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomColors {
+extension CustomColors on Colors {
   static Color graySofi({double colorOpacity = 1.0}) =>
       Color(0xFF5E5E5E).withOpacity(colorOpacity);
 
@@ -21,6 +21,12 @@ class CustomColors {
 
   static Color brown({double colorOpacity = 1.0}) =>
       Color(0xFFA07658).withOpacity(colorOpacity);
+
+  static Color title({double colorOpacity = 1.0}) =>
+      Color(0xFF009900).withOpacity(colorOpacity);
+
+  static Color activityBg({double colorOpacity = 1.0}) =>
+      Color(0xFFE6FAFF).withOpacity(colorOpacity);
 }
 
 extension StringExtension on String {

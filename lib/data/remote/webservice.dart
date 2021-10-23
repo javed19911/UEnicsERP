@@ -1,24 +1,43 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:ui';
 
+import 'package:UEnicsERP/multiLanguage/lanuages/language.dart';
+import 'package:UEnicsERP/ui/base/ActivityResult.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import '../../main.dart';
 import '../../utils/UtilFunctions.dart';
 import '../local/prefs/AppPreferencesHelper.dart';
 import '../models/CommodityResponse.dart';
 import '../models/LotResponse.dart';
 import '../models/default_response.dart';
-import '../models/otp_reponse.dart';
+import '../models/login_reponse.dart';
 
 import 'ApiHelper.dart';
 
+enum ErrorType { NONE, OK, APP_OUTDATED, SESSION_TIMEOUT, RETRY }
+
 class Webservice implements ApiHelper {
+  late BuildContext _buildContext;
+  Future? dialog = null;
+  String? updatedToken = null;
+
+  set buildContext(BuildContext value) {
+    _buildContext = value;
+  }
+
   //staging
-  static String BASE_HOST_URL = "http://3.7.230.206:3000";
+  // static String BASE_HOST_URL = "https://uenics-erp.herokuapp.com";
+
+  //development
+  static String BASE_HOST_URL = "http://127.0.0.1:5000";
 
   //production
   //static final String BASE_HOST_URL = "http://staging.praman.ai" ;
-  static String BASE_URL = BASE_HOST_URL + "/api/";
+  static String BASE_URL = BASE_HOST_URL + "/";
 
   Future<Map<String, String>> getHeader() async {
     Locale lang = await AppPreferencesHelper().getSelectedLanguage();
@@ -30,6 +49,41 @@ class Webservice implements ApiHelper {
   }
 
   Webservice();
+
+  Future<ErrorType> checkErrorType(DefaultResponse defaultResponse) async {
+    print(dialog);
+    if (dialog == null) {
+      // var defaultResponse = DefaultResponse.fromJson(body);
+      if (defaultResponse.error?.code == 8) {
+        //session time out
+        dialog = Navigator.of(_buildContext, rootNavigator: true).pushNamed(
+          "/login",
+          arguments: true,
+        );
+        var result = await dialog;
+        dialog = null;
+        if (result is ActivityResult) {
+          if (result.code == ActivityResultCode.ACTIVITY_OK) {
+            updatedToken = result.result;
+            print("token " + updatedToken!);
+            return ErrorType.RETRY;
+          } else {
+            return ErrorType.SESSION_TIMEOUT;
+          }
+        } else {
+          return ErrorType.SESSION_TIMEOUT;
+        }
+      } else if (defaultResponse.error?.code! == 33) {
+        dialog = updateDialog(_buildContext, forceUpdate: true);
+        await dialog;
+        dialog = null;
+        return ErrorType.APP_OUTDATED;
+      } else {
+        return ErrorType.OK;
+      }
+    }
+    return ErrorType.NONE;
+  }
 
   Future<bool> isInternet() async {
     if (BASE_HOST_URL.contains("192.168")) {
@@ -45,35 +99,35 @@ class Webservice implements ApiHelper {
   }
 
   @override
-  Future<OTP_Reponse> validateUser(String email, String password) async {
+  Future<LoginReponse> validateUser(String email, String password) async {
     if (!await isInternet()) {
       throw Exception("Check your Internet connection");
     }
     ;
     int timeZoneOffset = UtilFunctions.getLocalTimezoneOffsetInSeconds();
 
-    Map data = {
-      "email": "$email",
-      "password": "$password",
-      "device_token": "",
-      "offset": timeZoneOffset
-    };
+    Map data = {"user_id": "$email", "password": "$password"};
 
-    String body = json.encode(data);
+    //String body = json.encode(data);
 
-    final response = await http.post(
-        Uri.parse(BASE_URL + "users/login_with_otp"),
+    final response = await http.post(Uri.parse(BASE_URL + "auth/login"),
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json"
+          'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: body);
+        body: data);
 
     if (response.statusCode == 200) {
       final body = jsonDecode(response.body);
-      return OTP_Reponse.fromJson(body);
+      return LoginReponse.fromJson(body);
     } else {
-      throw Exception("Unable to perform request!");
+      var defaultResponse = DefaultResponse.fromJson(jsonDecode(response.body));
+      ErrorType errorType = await checkErrorType(defaultResponse);
+      if (errorType == ErrorType.RETRY) {
+        return validateUser(email, password);
+      } else {
+        throw Exception(defaultResponse.error!.errorMessage);
+      }
     }
   }
 
@@ -111,7 +165,7 @@ class Webservice implements ApiHelper {
   }
 
   @override
-  Future<OTP_Reponse> validateOTP(String phone_number, String OTP) async {
+  Future<LoginReponse> validateOTP(String phone_number, String OTP) async {
     if (!await isInternet()) {
       throw Exception("Check your Internet connection");
     }
@@ -135,7 +189,7 @@ class Webservice implements ApiHelper {
 
     if (response.statusCode == 200) {
       final body = jsonDecode(response.body);
-      return OTP_Reponse.fromJson(body);
+      return LoginReponse.fromJson(body);
     } else {
       throw Exception("Unable to perform request!");
     }
@@ -174,7 +228,15 @@ class Webservice implements ApiHelper {
       //print("body : ${body}");
       return LotResponse.fromJson(body);
     } else {
-      throw Exception("Unable to perform request!");
+      var defaultResponse = DefaultResponse.fromJson(jsonDecode(response.body));
+      var errorType = checkErrorType(defaultResponse);
+      if (errorType == ErrorType.APP_OUTDATED) {
+        throw Exception(Language.of(_buildContext).appOutDated);
+      } else if (errorType == ErrorType.RETRY) {
+        return getLots(token, email, filterOption);
+      } else {
+        throw Exception(defaultResponse.error!.errorMessage);
+      }
     }
   }
 

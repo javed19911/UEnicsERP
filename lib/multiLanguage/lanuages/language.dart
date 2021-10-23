@@ -17,6 +17,16 @@ abstract class Language {
 
   String get requiredWarningText;
 
+  String get selectedLanguageCode;
+
+  String get requestCameraPermissionTile;
+
+  String get requestCameraPermissionDescription;
+
+  String get requestLocationPermissionTile;
+
+  String get requestLocationPermissionDescription;
+
   String get labelCreateNewLot;
 
   String get labelReferAndEarn;
@@ -57,6 +67,8 @@ abstract class Language {
 
   String get labelPhotos;
 
+  String get labelReportUrl;
+
   String get labelSendViaWhatsApp;
 
   String get labelLots;
@@ -94,6 +106,8 @@ abstract class Language {
   String get required;
 
   String get addAndCreateLot;
+
+  String get updateLot;
 
   String get addBuyers;
 
@@ -178,4 +192,151 @@ abstract class Language {
   String get yesterdayLots;
 
   String get mySellerLots;
+
+  String get availableForPurchase;
+
+  String get wholeSale;
+
+  String get rate;
+
+  String get quality;
+
+  String get labelContinue;
+
+  String get views;
+
+  String get generatingQualityReport;
+
+  String get sellerName;
+
+  String get sellerContact;
+
+  String get firstName;
+
+  String get lastName;
+
+  String get loadingFeed;
+
+  String get lotNotAvailable;
+
+  String get pleaseEnterFirstName;
+
+  String get pleaseEnterLastName;
+
+  String get type;
+
+  String get pleaseEnterSellerName;
+
+  String get pleaseEnterSellerContact;
+
+  String get pleaseEnterLotQuantity;
+
+  String get pleaseEnterLotPrice;
+
+  String get uploading;
+
+  String get processing;
+
+  String get update;
+
+  String get fetchingLocation;
+
+  String get noImageAdded;
+
+  String get updateAvailableOnPlayStore;
+
+  String get updateAvailableOnAppStore;
+
+  String get pleaseUpdateYourAppForTheLatestFeatures;
+
+  String get markIncorrect;
+
+  String get labelPhoto;
+
+  String quantityShouldBeLessThen(String quantity);
+
+  String quantityShouldBeGraterThen(String minQuantity);
+
+  String get pramanTermsAndCondition;
+
+  String get termsConditionDescription;
+
+  String get acceptTermsAndCondition;
+
+  String get ok;
+
+  String get pleaseAcceptTermsAndConditionToContinue;
+
+  String get shareUpdateLotDetailsWithYourContacts;
+
+  String get skip;
+
+  String get pleaseAddPhotoToContinue;
+
+  String get badPhoto;
+
+  String get appOutDated;
+
+  String get unableToPerformRequest;
+
+  String get checkYourInternetConnection;
+
+  String get invalidPhoneNumber;
+
+  String get invalidOTP;
+
+  String get pleaseEnterPrice;
+
+  String priceShouldLessThan(String price);
+
+  String priceShouldBeGraterThen(String price);
+
+  String get pleaseEnterQuantity;
+
+  String get pleaseEnterDeliveryAddress;
+
+  String minimumQuantityIs(String commodity, String minQuantity);
+
+  String get requestContactsPermissionTile;
+
+  String get requestContactsPermissionDescription;
+
+  ///auction
+  String get loggedInAs;
+  String get dashboard;
+  String get auctionHistory;
+  String get noAuctionsHaveBeenScheduled;
+  String get registeredAuctions;
+  String get startBid;
+  String get photos;
+  String get viewPhoto;
+  String get youAreTheHighestBidder;
+  String get bidHigherToWinThisLot;
+  String get highestBid;
+  String get youHaveNotRegisteredForThisAuction;
+  String get noAuctionAvailable;
+  String get auctioneer;
+  String get pleaseBidHigherToWinThisLot;
+  String get yourBid;
+  String get registeredForAuction;
+  String get registerForAuction;
+  String get placeBid;
+  String get or;
+  String get bid;
+  String get cancelRegistration;
+  String get toHighestBid;
+  String get auctionStartIn;
+  String get auctions;
+  String get auction;
+  String get auctionsStartIn;
+  String get actualPaymentValueWillBe;
+  String get platformCharges;
+  String get totalValue;
+  String get whileYourAuctionHistoryIsBeingFetched;
+  String get noAuctionHistoryAvailable;
+  String get pleaseWait;
+  String get whileAuctionsIsBeingFetched;
+  String valueCanNotBeEmpty({required String text});
+  String shouldGreaterThenValue({required String text, required String value});
+  String shouldLessThenValue({required String text, required String value});
 }

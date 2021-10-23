@@ -1,20 +1,14 @@
 class DefaultResponse {
   bool _success = false;
   Error? _error;
-  String? _message;
-  String? _title;
 
   bool get success => _success;
   Error? get error => _error;
-  String? get message => _message;
-  String? get title => _title;
 
   DefaultResponse();
 
   DefaultResponse.fromJson(dynamic json) {
-    _success = json["success"];
-    _message = json["message"];
-    _title = json["title"];
+    _success = json["success"] ?? false;
     if (json["error"] != null) {
       _error = Error.fromJson(json["error"]);
     } else {
@@ -25,8 +19,6 @@ class DefaultResponse {
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
     map["success"] = _success;
-    map["message"] = _message;
-    map["title"] = _title;
     map["error"] = _error?.toJson();
     return map;
   }

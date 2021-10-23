@@ -17,6 +17,7 @@ abstract class BaseActivity<S extends StatefulWidget, VM extends BaseViewModel>
   VM? getViewModel() {
     try {
       _view_model = Provider.of<VM>(context);
+      _view_model?.buildContext = context;
     } catch (e) {
       _view_model = null;
       // print(e.toString());
@@ -79,31 +80,6 @@ abstract class BaseActivity<S extends StatefulWidget, VM extends BaseViewModel>
 
   @override
   Widget build(BuildContext context) {
-    // var VM = getViewModel();
-
-    //print("on create inside1- " + (_create_count.toString()));
-    //var widget = getWidget(context,getViewModel());
-    /*_create_count++;
-      if (_create_count == 2) {
-       // _create_count++;
-        //print("on create inside2- " +  (_create_count.toString()));
-        isCreated = true;
-        //onCreate();
-      }*/
-
-    // if(isCreated && !VM.isLoggedIn) {
-    //
-    //   print("VM $VM");
-    //   VM.isLoggedIn = true;
-    //
-    //   Future.delayed(const Duration(milliseconds: 1000), () {
-    //     //print('Hello, world');
-    //     //replaceNamedActivity("/");
-    //     Navigator.pushNamedAndRemoveUntil(context, "/", (r) => false);
-    //   });
-    //
-    // }
-
     return WillPopScope(
         child: isCreated
             ? Container(
@@ -120,7 +96,9 @@ abstract class BaseActivity<S extends StatefulWidget, VM extends BaseViewModel>
                             currentFocus.unfocus();
                           }
                         },
-                        child: getWidget(context, getViewModel())),
+                        child: FocusTraversalGroup(
+                            policy: OrderedTraversalPolicy(),
+                            child: getWidget(context, getViewModel()))),
                   ),
                 ),
               )
@@ -173,6 +151,20 @@ abstract class BaseActivity<S extends StatefulWidget, VM extends BaseViewModel>
       {Object? args}) {
     Navigator.pushNamed(context, page, arguments: args).then((result) =>
         (result is ActivityResult)
+            ? onActivityResult(result_code, result)
+            : onActivityResult(
+                result_code,
+                ActivityResult.codeResult(
+                    ActivityResultCode.ACTIVITY_CANCEL, result)));
+  }
+
+  void showAsDialogForResult(Widget activity, int result_code) {
+    showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return activity;
+            })
+        .then((result) => (result is ActivityResult)
             ? onActivityResult(result_code, result)
             : onActivityResult(
                 result_code,

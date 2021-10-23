@@ -1,14 +1,14 @@
 import '../models/CommodityResponse.dart';
 import '../models/LotResponse.dart';
 import '../models/default_response.dart';
-import '../models/otp_reponse.dart';
+import '../models/login_reponse.dart';
 
 abstract class ApiHelper {
   Future<DefaultResponse> generateOTP(String phone_number);
 
-  Future<OTP_Reponse> validateOTP(String phoneNumber, String OTP);
+  Future<LoginReponse> validateOTP(String phoneNumber, String OTP);
 
-  Future<OTP_Reponse> validateUser(String email, String password);
+  Future<LoginReponse> validateUser(String email, String password);
 
   Future<LotResponse> getLots(String token, String email, Map filterOption);
 

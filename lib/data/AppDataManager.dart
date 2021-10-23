@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 import 'DataManager.dart';
 import 'local/prefs/AppPreferencesHelper.dart';
 import 'local/prefs/PreferencesHelper.dart';
@@ -8,11 +10,12 @@ import 'models/LotResponse.dart';
 import 'models/create_or_update_lot_response.dart';
 import 'models/default_response.dart';
 import 'models/filters_response.dart';
-import 'models/otp_reponse.dart';
+import 'models/login_reponse.dart';
 import 'remote/webservice.dart';
 
 class AppDataManager implements DataManager {
   late Webservice webservice;
+  late BuildContext _buildContext;
 
   late PreferencesHelper mPreferencesHelper;
 
@@ -25,6 +28,16 @@ class AppDataManager implements DataManager {
         Webservice.BASE_URL = value + "/api/";
       }
     });*/
+  }
+
+  @override
+  set buildContext(BuildContext value) {
+    _buildContext = value;
+    webservice.buildContext = value;
+  }
+
+  BuildContext get buildContext {
+    return _buildContext;
   }
 
   @override
@@ -168,7 +181,7 @@ class AppDataManager implements DataManager {
   }
 
   @override
-  Future<OTP_Reponse> validateUser(String email, String password) {
+  Future<LoginReponse> validateUser(String email, String password) {
     return webservice.validateUser(email, password);
   }
 
@@ -178,7 +191,7 @@ class AppDataManager implements DataManager {
   }
 
   @override
-  Future<OTP_Reponse> validateOTP(String phone_number, String OTP) {
+  Future<LoginReponse> validateOTP(String phone_number, String OTP) {
     return webservice.validateOTP(phone_number, OTP);
   }
 

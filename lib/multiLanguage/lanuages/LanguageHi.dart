@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
-
 import 'language.dart';
 
 class LanguageHi extends Language {
-
   @override
   String get userLabel => "输入用户名 / Enter username";
 
@@ -29,7 +26,10 @@ class LanguageHi extends Language {
   String get selectedLanguage => 'हिन्दी';
 
   @override
-  String get labelSelectItems => 'वस्तुएं चुनें';
+  String get labelSelectItems => 'कमोडिटी चुनें';
+
+  @override
+  String get selectedLanguageCode => 'hi';
 
   @override
   String get labelClaimOffer => 'भेंट का दावा';
@@ -115,7 +115,7 @@ class LanguageHi extends Language {
   String get addSelected => 'चुने हुए को जोड़ो';
 
   @override
-  String get buyThisLot => 'इस लॉट्  खरीदें';
+  String get buyThisLot => 'यह लॉट् खरीदें';
 
   @override
   // TODO: implement displayText
@@ -139,6 +139,9 @@ class LanguageHi extends Language {
 
   @override
   String get addAndCreateLot => 'जोड़ें और बनाएं लॉट्';
+
+  @override
+  String get updateLot => 'लॉट अपडेट करें';
 
   @override
   String get required => 'अपेक्षित';
@@ -266,14 +269,370 @@ class LanguageHi extends Language {
   String get verified => 'सत्यापित';
 
   @override
-  String get discoverNewLots => 'डिस्कवर न्यू लॉट्स';
+  String get discoverNewLots => 'नए लॉट खोजें';
 
   @override
-  String get mySellerLots => 'मेरे विक्रेता लॉट्स';
+  String get mySellerLots => 'मेरे बेचनेवाले लॉट';
 
   @override
-  String get todayLots => "आज के लॉट्स";
+  String get todayLots => "आज का लॉट";
 
   @override
-  String get yesterdayLots => "कल के लॉट्स";
+  String get yesterdayLots => "कल का लॉट";
+
+  @override
+  String get availableForPurchase => 'खरीद के लिए उपलब्ध';
+
+  @override
+  String get quality => 'गुणवत्ता';
+
+  @override
+  String get rate => 'कीमत';
+
+  @override
+  String get wholeSale => 'थोक';
+
+  @override
+  String get labelContinue => 'जारी रखें';
+
+  @override
+  String get views => 'ने देखी';
+
+  @override
+  String get generatingQualityReport =>
+      'हम आपकी गुणवत्ता रिपोर्ट तैयार कर रहे हैं';
+
+  @override
+  String get sellerContact => "विक्रेता से संपर्क करें";
+
+  @override
+  String get sellerName => "विक्रेता का नाम";
+
+  @override
+  String get firstName => 'प्रथम नाम';
+
+  @override
+  String get lastName => 'अंतिम नाम';
+
+  @override
+  String get loadingFeed => 'फीड लोड हो रहा है';
+
+  @override
+  String get lotNotAvailable => 'लॉट् उपलब्ध नहीं है';
+
+  @override
+  String get pleaseEnterLastName => 'कृपया अंतिम नाम दर्ज करें';
+
+  @override
+  String get pleaseEnterFirstName => 'कृपया प्रथम नाम दर्ज करें';
+
+  @override
+  String get type => 'प्रकार';
+
+  @override
+  String get pleaseEnterSellerContact => 'कृपया विक्रेता संपर्क दर्ज करें';
+
+  @override
+  String get pleaseEnterSellerName => 'कृपया विक्रेता का नाम दर्ज करें';
+
+  @override
+  String get pleaseEnterLotPrice => 'कृपया लॉट कीमत दर्ज करें';
+
+  @override
+  String get pleaseEnterLotQuantity => 'कृपया लॉट् मात्रा दर्ज करें';
+
+  @override
+  String get uploading => 'अपलोड हो रहा है';
+
+  @override
+  String get processing => 'प्रोसेस की जा रही है';
+
+  @override
+  String get fetchingLocation =>
+      'कृपया प्रतीक्षा करें जब तक हम आपका स्थान प्राप्त नहीं कर लेते';
+
+  @override
+  String get noImageAdded => 'अपडेट करने के लिए कोई छवि नहीं जोड़ी गई';
+
+  @override
+  String get pleaseUpdateYourAppForTheLatestFeatures =>
+      'नवीनतम सुविधाओं के लिए कृपया अपना ऐप अपडेट करें';
+
+  @override
+  String get update => 'अपडेट करें';
+
+  @override
+  String get updateAvailableOnAppStore => 'अपडेट ऐप स्टोर पर उपलब्ध है';
+
+  @override
+  String get updateAvailableOnPlayStore => 'अपडेट प्ले स्टोर पर उपलब्ध है';
+
+  @override
+  String get markIncorrect => 'गलत चिह्नित किया गया';
+
+  @override
+  String get labelPhoto => 'तस्वीर';
+
+  @override
+  String get labelReportUrl => "रिपोर्ट ";
+
+  @override
+  String quantityShouldBeGraterThen(String minQuantity) =>
+      'मात्रा $minQuantity किलो से अधिक होनी चाहिए';
+
+  @override
+  String quantityShouldBeLessThen(quantity) =>
+      'मात्रा $quantity किलो से कम होनी चाहिए';
+
+  /* @override
+  String get priceShouldBeGraterThen => 'कीमत 0 से अधिक होनी चाहिए';*/
+
+  @override
+  String get quantityCanNotBe0 => 'मात्रा 0 किलो से कम नहीं हो सकती';
+
+  @override
+  String get acceptTermsAndCondition => 'नियम और शर्तों को स्वीकार करें';
+
+  @override
+  String get ok => 'ठीक है';
+
+  @override
+  String get pramanTermsAndCondition => 'प्रमाण नियम और शर्तें';
+
+  @override
+  String get termsConditionDescription =>
+      'कृपया ऐप का अनुभव करने के लिए प्रमाण नियम और शर्तें पढ़ें और स्वीकार करें';
+
+  @override
+  String get pleaseAcceptTermsAndConditionToContinue =>
+      'जारी रखने के लिए कृपया नियम और शर्तें स्वीकार करें';
+
+  @override
+  String get shareUpdateLotDetailsWithYourContacts =>
+      'अपने संपर्कों के साथ अपडेट लॉट विवरण साझा करें';
+
+  @override
+  String get skip => 'छोड़ें';
+
+  @override
+  String get pleaseAddPhotoToContinue =>
+      'जारी रखने के लिए कृपया कुछ फ़ोटो जोड़ें';
+
+  @override
+  String get badPhoto => "खराब फोटो";
+
+  @override
+  String get requestCameraPermissionDescription =>
+      "\"प्रमन\" आपका कैमरा एक्सेस करना चाहेंगे";
+
+  @override
+  String get requestCameraPermissionTile =>
+      "गुणवत्ता विश्लेषण के लिए छवि लेने के लिए प्रमाण आपके कैमरे का उपयोग करेगा।";
+
+  @override
+  String get requestLocationPermissionTile =>
+      "प्रमाण आपका स्थान जानना चाहता है";
+
+  @override
+  String get requestLocationPermissionDescription =>
+      "प्रमाण आपके स्थान की जानकारी शहर और राज्य के लिए इस्तेमाल करेगा";
+
+  @override
+  String get appOutDated => "अपडेट उपलब्ध";
+
+  @override
+  String get checkYourInternetConnection => "अपना इंटरनेट संपर्क जांचे";
+
+  @override
+  String get unableToPerformRequest => "अनुरोध करने में असमर्थ!";
+
+  @override
+  String get invalidOTP => "कृपया मान्य ओटीपी दर्ज करें";
+
+  @override
+  String get invalidPhoneNumber => "कृपया मान्य मोबाइल नंबर दर्ज करें";
+
+  @override
+  String get pleaseEnterDeliveryAddress => 'कृपया वितरण पता दर्ज करें';
+
+  @override
+  String get pleaseEnterPrice => 'कृपया कीमत दर्ज करें';
+
+  @override
+  String get pleaseEnterQuantity => 'कृपया मात्रा दर्ज करें';
+
+  @override
+  String priceShouldLessThan(String price) {
+    return 'कीमत $price से कम होनी चाहिए';
+  }
+
+  @override
+  String priceShouldBeGraterThen(String price) {
+    return 'कीमत $price से अधिक होनी चाहिए';
+  }
+
+  @override
+  String minimumQuantityIs(String commodity, String minQuantity) {
+    return 'न्यूनतम $commodity की मात्रा $minQuantity किग्रा है';
+  }
+
+  @override
+  String get requestContactsPermissionDescription =>
+      'जब आप नया लॉट बनाएंगे तो प्रमाण खरीदारों को अपडेट करने के लिए आपके संपर्कों का उपयोग करेगा';
+
+  @override
+  String get requestContactsPermissionTile =>
+      '\"प्रमन\" आपके संपर्कों एक्सेस करना चाहेंगे';
+
+  @override
+  // TODO: implement auctionHistory
+  String get auctionHistory => throw UnimplementedError();
+
+  @override
+  // TODO: implement auctioneer
+  String get auctioneer => throw UnimplementedError();
+
+  @override
+  // TODO: implement bidHigherToWinThisLot
+  String get bidHigherToWinThisLot => throw UnimplementedError();
+
+  @override
+  // TODO: implement dashboard
+  String get dashboard => throw UnimplementedError();
+
+  @override
+  // TODO: implement highestBid
+  String get highestBid => throw UnimplementedError();
+
+  @override
+  // TODO: implement loggedInAs
+  String get loggedInAs => throw UnimplementedError();
+
+  @override
+  // TODO: implement noAuctionAvailable
+  String get noAuctionAvailable => throw UnimplementedError();
+
+  @override
+  // TODO: implement noAuctionsHaveBeenScheduled
+  String get noAuctionsHaveBeenScheduled => throw UnimplementedError();
+
+  @override
+  // TODO: implement photos
+  String get photos => throw UnimplementedError();
+
+  @override
+  // TODO: implement pleaseBidHigherToWinThisLot
+  String get pleaseBidHigherToWinThisLot => throw UnimplementedError();
+
+  @override
+  // TODO: implement registerForAuction
+  String get registerForAuction => throw UnimplementedError();
+
+  @override
+  // TODO: implement registeredAuctions
+  String get registeredAuctions => throw UnimplementedError();
+
+  @override
+  // TODO: implement registeredForAuction
+  String get registeredForAuction => throw UnimplementedError();
+
+  @override
+  // TODO: implement startBid
+  String get startBid => throw UnimplementedError();
+
+  @override
+  // TODO: implement viewPhoto
+  String get viewPhoto => throw UnimplementedError();
+
+  @override
+  // TODO: implement youAreTheHighestBidder
+  String get youAreTheHighestBidder => throw UnimplementedError();
+
+  @override
+  // TODO: implement youHaveNotRegisteredForThisAuction
+  String get youHaveNotRegisteredForThisAuction => throw UnimplementedError();
+
+  @override
+  // TODO: implement yourBid
+  String get yourBid => throw UnimplementedError();
+
+  @override
+  // TODO: implement or
+  String get or => throw UnimplementedError();
+
+  @override
+  // TODO: implement placeBid
+  String get placeBid => throw UnimplementedError();
+
+  @override
+  // TODO: implement auctionStartIn
+  String get auctionStartIn => throw UnimplementedError();
+
+  @override
+  // TODO: implement auctions
+  String get auctions => throw UnimplementedError();
+
+  @override
+  // TODO: implement bid
+  String get bid => throw UnimplementedError();
+
+  @override
+  // TODO: implement cancelRegistration
+  String get cancelRegistration => throw UnimplementedError();
+
+  @override
+  // TODO: implement toHighestBid
+  String get toHighestBid => throw UnimplementedError();
+
+  @override
+  // TODO: implement auction
+  String get auction => throw UnimplementedError();
+
+  @override
+  // TODO: implement auctionsStartIn
+  String get auctionsStartIn => throw UnimplementedError();
+
+  @override
+  // TODO: implement actualPaymentValueWillBe
+  String get actualPaymentValueWillBe => throw UnimplementedError();
+
+  @override
+  // TODO: implement platformCharges
+  String get platformCharges => throw UnimplementedError();
+
+  @override
+  // TODO: implement totalValue
+  String get totalValue => throw UnimplementedError();
+
+  @override
+  // TODO: implement noAuctionHistoryAvailable
+  String get noAuctionHistoryAvailable => throw UnimplementedError();
+
+  @override
+  // TODO: implement pleaseWait
+  String get pleaseWait => throw UnimplementedError();
+
+  @override
+  // TODO: implement whileYourAuctionHistoryIsBeingFetched
+  String get whileYourAuctionHistoryIsBeingFetched =>
+      throw UnimplementedError();
+
+  @override
+  // TODO: implement whileAuctionsIsBeingFetched
+  String get whileAuctionsIsBeingFetched => throw UnimplementedError();
+
+  @override
+  String shouldGreaterThenValue({required String text, required String value}) {
+    return '$text $value से अधिक होनी चाहिए';
+  }
+
+  @override
+  String shouldLessThenValue({required String text, required String value}) {
+    return '$text $value से कम होनी चाहिए';
+  }
+
+  @override
+  String valueCanNotBeEmpty({required String text}) {
+    return '$text खाली नहीं हो सकता है';
+  }
 }

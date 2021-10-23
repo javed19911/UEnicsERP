@@ -1,7 +1,13 @@
+import 'dart:io';
+
+import 'package:UEnicsERP/res/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'data/AppDataManager.dart';
+import 'multiLanguage/lanuages/language.dart';
 import 'multiLanguage/localization_delegate.dart';
 import 'res/string/Strings.dart';
 import 'route_generator.dart';
@@ -46,6 +52,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: Strings.app_name,
       theme: ThemeData(
+        textTheme: GoogleFonts.latoTextTheme(
+          Theme.of(context).textTheme,
+        ),
         brightness: Brightness.light,
         primaryColor: const Color(0xFF02BB9F),
         primaryColorDark: const Color(0xFF038a75),
@@ -76,6 +85,103 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
+}
+
+Future updateDialog(BuildContext context, {bool forceUpdate = false}) {
+  return showDialog(
+      context: context,
+      barrierDismissible: !forceUpdate,
+      builder: (context) {
+        return WillPopScope(
+          onWillPop: () async {
+            return !forceUpdate;
+          },
+          child: AlertDialog(
+            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(4))),
+            content: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                !forceUpdate
+                    ? Align(
+                        alignment: Alignment.centerRight,
+                        child: CircleAvatar(
+                          backgroundColor: Colors.black38,
+                          radius: 14,
+                          child: IconButton(
+                            padding: EdgeInsets.zero,
+                            icon: Icon(Icons.clear),
+                            color: Colors.white,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                      )
+                    : SizedBox(
+                        height: 1,
+                      ),
+                Text(
+                  Platform.isIOS
+                      ? Language.of(context).updateAvailableOnAppStore
+                      : Language.of(context).updateAvailableOnPlayStore,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: CustomColors.graySofi(),
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  Language.of(context).pleaseUpdateYourAppForTheLatestFeatures,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: CustomColors.graySofi(),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w300),
+                ),
+                SizedBox(height: 16),
+                updateBtn(context)
+              ],
+            ),
+          ),
+        );
+      });
+}
+
+Widget updateBtn(BuildContext context) {
+  return Container(
+    child: MaterialButton(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      minWidth: MediaQuery.of(context).size.width,
+      color: CustomColors.darkGreen(),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+      child: Text(
+        Language.of(context).update,
+        style: TextStyle(
+            color: Colors.white, fontSize: 14, fontWeight: FontWeight.normal),
+      ),
+      onPressed: () async {
+        String url =
+            'https://play.google.com/store/apps/details?id=com.praman.pramantrading';
+        if (Platform.isIOS) {
+          //TODO add app store link
+          url = 'itms://itunes.apple.com/app/apple-store/id1567339745?mt=8';
+        }
+
+        if (await canLaunch(url)) {
+          await launch(url);
+        } else {
+          throw 'Could not launch $url';
+        }
+        Navigator.pop(context);
+      },
+    ),
+  );
 }
 
 extension HexColor on Color {
