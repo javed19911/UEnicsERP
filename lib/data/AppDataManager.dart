@@ -5,12 +5,6 @@ import 'package:flutter/material.dart';
 import 'DataManager.dart';
 import 'local/prefs/AppPreferencesHelper.dart';
 import 'local/prefs/PreferencesHelper.dart';
-import 'models/CommodityResponse.dart';
-import 'models/LotResponse.dart';
-import 'models/create_or_update_lot_response.dart';
-import 'models/default_response.dart';
-import 'models/filters_response.dart';
-import 'models/login_reponse.dart';
 import 'remote/webservice.dart';
 
 class AppDataManager implements DataManager {
@@ -178,57 +172,5 @@ class AppDataManager implements DataManager {
   @override
   Future<Locale> setLanguage(String languageCode) {
     return mPreferencesHelper.setLanguage(languageCode);
-  }
-
-  @override
-  Future<LoginReponse> validateUser(String email, String password) {
-    return webservice.validateUser(email, password);
-  }
-
-  @override
-  Future<DefaultResponse> generateOTP(String phone_number) {
-    return webservice.generateOTP(phone_number);
-  }
-
-  @override
-  Future<LoginReponse> validateOTP(String phone_number, String OTP) {
-    return webservice.validateOTP(phone_number, OTP);
-  }
-
-  @override
-  Future<LotResponse> getLots(String token, String email, Map filterOption) {
-    return webservice.getLots(token, email, filterOption);
-  }
-
-  @override
-  Future<CommodityResponse> getCommodityList(String token, String email) {
-    return webservice.getCommodityList(token, email);
-  }
-
-  @override
-  Future<DefaultResponse> uploadLotImage(
-      String token,
-      String email,
-      String temp_id,
-      String location_type_name,
-      String job_process_name,
-      int job_process_id,
-      int product_id,
-      String imagePath,
-      String longitude,
-      String latitude,
-      bool is_ai_image) {
-    return webservice.uploadLotImage(
-        token,
-        email,
-        temp_id,
-        location_type_name,
-        job_process_name,
-        job_process_id,
-        product_id,
-        imagePath,
-        longitude,
-        latitude,
-        is_ai_image);
   }
 }

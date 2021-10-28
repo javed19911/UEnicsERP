@@ -4,18 +4,18 @@ import 'package:flutter/services.dart';
 import 'package:UEnicsERP/res/string/Strings.dart';
 import 'package:UEnicsERP/ui/base/BaseActivity.dart';
 
-import '../vmLogin.dart';
+import '../login_vm.dart';
 
 class EnterPhoneNumber extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _enterPhoneNumberPage();
 }
 
-class _enterPhoneNumberPage extends BaseActivity<EnterPhoneNumber, vmLogin> {
+class _enterPhoneNumberPage extends BaseActivity<EnterPhoneNumber, LoginVM> {
   final TextEditingController _phone_controller = TextEditingController();
 
   @override
-  Widget getWidget(BuildContext context, vmLogin? view_model) {
+  Widget getWidget(BuildContext context, LoginVM? view_model) {
     return Column(children: <Widget>[
       Expanded(
         child: Stack(
@@ -90,7 +90,7 @@ class _enterPhoneNumberPage extends BaseActivity<EnterPhoneNumber, vmLogin> {
                           controller: _phone_controller,
                           keyboardType: TextInputType.phone,
                           inputFormatters: <TextInputFormatter>[
-                            WhitelistingTextInputFormatter.digitsOnly
+                            FilteringTextInputFormatter.digitsOnly,
                           ],
                           decoration: InputDecoration(
                             prefixIcon:

@@ -1,7 +1,6 @@
 import 'local/prefs/PreferencesHelper.dart';
-import 'remote/ApiHelper.dart';
 
-abstract class DataManager implements ApiHelper, PreferencesHelper {}
+abstract class DataManager implements PreferencesHelper {}
 
 enum LoggedInMode {
   LOGGED_IN_MODE_LOGGED_OUT,

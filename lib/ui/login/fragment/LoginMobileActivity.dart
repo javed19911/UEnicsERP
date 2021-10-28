@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:UEnicsERP/res/color.dart';
+import 'package:UEnicsERP/ui/master_page/master_activity.dart';
+import 'package:UEnicsERP/ui/master_page/master_vm.dart';
 import 'package:UEnicsERP/utils/customWidget/customButton.dart';
 import 'package:UEnicsERP/utils/customWidget/customText.dart';
 import 'package:UEnicsERP/utils/logo.dart';
@@ -9,11 +11,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 import '../../../main.dart';
 import '../../../multiLanguage/lanuages/language.dart';
 import '../../base/BaseActivity.dart';
-import '../iLogin.dart';
-import '../vmLogin.dart';
+import '../login_view.dart';
+import '../login_vm.dart';
 
 import 'dart:io' show Platform, exit;
 import 'package:flutter/services.dart';
@@ -27,9 +30,9 @@ class LoginMobileActivity extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends BaseActivity<LoginMobileActivity, vmLogin>
-    implements iLogin {
-  vmLogin? view_model;
+class _LoginPageState extends BaseActivity<LoginMobileActivity, LoginVM>
+    implements LoginView {
+  LoginVM? view_model;
   var formKey = GlobalKey<FormState>();
   var progress;
 
@@ -50,7 +53,7 @@ class _LoginPageState extends BaseActivity<LoginMobileActivity, vmLogin>
   }
 
   @override
-  Widget getWidget(BuildContext buildContext, vmLogin? vm) {
+  Widget getWidget(BuildContext buildContext, LoginVM? vm) {
     this.view_model = vm;
     //vm.checkIfAlreadyLoggedIn();
     return Scaffold(
@@ -188,6 +191,13 @@ class _LoginPageState extends BaseActivity<LoginMobileActivity, vmLogin>
 
   @override
   void openDashboardActivity() {
-    replaceNamedActivity("/dashboard");
+    replaceNamedActivity("/master_setup");
+    // replaceNamedActivity("/dashboard");
+    // replaceActivity(
+    //     ChangeNotifierProvider(
+    //       create: (context) => MasterVM(),
+    //       child: MasterActivity(),
+    //     ),
+    //     rootNavigator: true);
   }
 }

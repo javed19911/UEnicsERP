@@ -1,22 +1,26 @@
 import 'dart:async';
 
+import 'package:UEnicsERP/res/color.dart';
+import 'package:UEnicsERP/ui/master_page/master_activity.dart';
+import 'package:UEnicsERP/ui/master_page/master_vm.dart';
 import 'package:UEnicsERP/utils/customWidget/customButton.dart';
 import 'package:UEnicsERP/utils/logo.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../main.dart';
 import '../../../multiLanguage/lanuages/language.dart';
 import '../../base/BaseActivity.dart';
-import '../iLogin.dart';
-import '../vmLogin.dart';
+import '../login_view.dart';
+import '../login_vm.dart';
 
 class LoginWebActivity extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends BaseActivity<LoginWebActivity, vmLogin>
-    implements iLogin {
-  vmLogin? view_model;
+class _LoginPageState extends BaseActivity<LoginWebActivity, LoginVM>
+    implements LoginView {
+  LoginVM? view_model;
   var progress;
   var formKey = GlobalKey<FormState>();
 
@@ -37,7 +41,7 @@ class _LoginPageState extends BaseActivity<LoginWebActivity, vmLogin>
   }
 
   @override
-  Widget getWidget(BuildContext buildContext, vmLogin? vm) {
+  Widget getWidget(BuildContext buildContext, LoginVM? vm) {
     this.view_model = vm;
     //vm.checkIfAlreadyLoggedIn();
     return Container(
@@ -69,6 +73,16 @@ class _LoginPageState extends BaseActivity<LoginWebActivity, vmLogin>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        // Container(
+                        //   // color: CustomColors.logoBgColor,
+                        //   padding: EdgeInsets.all(5),
+                        //   child: Image(
+                        //     width: 100,
+                        //     height: 100,
+                        //     image: AssetImage("lib/res/drawable/logo.png"),
+                        //     fit: BoxFit.cover,
+                        //   ),
+                        // ),
                         Logo(
                           color: Colors.white,
                           textSize: 20,
@@ -107,6 +121,7 @@ class _LoginPageState extends BaseActivity<LoginWebActivity, vmLogin>
                             height: 10,
                           ),
                           TextFormField(
+                            style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 labelText: Language.of(context).userLabel),
                             validator: checkEmptyValidation,
@@ -123,6 +138,7 @@ class _LoginPageState extends BaseActivity<LoginWebActivity, vmLogin>
                             height: 10,
                           ),
                           TextFormField(
+                            style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 labelText: Language.of(context).passwordLabel),
                             validator: checkEmptyValidation,
@@ -171,6 +187,13 @@ class _LoginPageState extends BaseActivity<LoginWebActivity, vmLogin>
 
   @override
   void openDashboardActivity() {
-    replaceNamedActivity("/dashboard");
+    // replaceNamedActivity("/country");
+    replaceNamedActivity("/master_setup");
+    // replaceActivity(
+    //     ChangeNotifierProvider(
+    //       create: (context) => MasterVM(),
+    //       child: MasterActivity(),
+    //     ),
+    //     rootNavigator: true);
   }
 }

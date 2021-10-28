@@ -36,6 +36,7 @@ class BoarderRoundTextView extends SimpleEditText {
   final int? maxLength;
   final TextInputAction? textInputAction;
   final double order;
+  final bool? enabled;
 
   const BoarderRoundTextView(
       {Key? key,
@@ -50,7 +51,8 @@ class BoarderRoundTextView extends SimpleEditText {
       this.minLines,
       this.maxLength,
       this.textInputAction,
-      this.order = 1})
+      this.order = 1,
+      this.enabled})
       : super(
             key: key,
             placeHolder: placeHolder,
@@ -64,11 +66,13 @@ class BoarderRoundTextView extends SimpleEditText {
             maxLines: maxLines,
             minLines: minLines,
             maxLength: maxLength,
-            order: order);
+            order: order,
+            enabled: enabled);
 }
 
 class SimpleEditText extends StatefulWidget {
-  final String placeHolder;
+  final String? placeHolder;
+  final String? hintText;
   final ValueChanged<String>? listener;
   final ValueChanged<bool>? onFocusChanged;
   final TextEditingController? controller;
@@ -82,10 +86,15 @@ class SimpleEditText extends StatefulWidget {
   final int? maxLength;
   final TextInputAction? textInputAction;
   final double order;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
+  final Color? fillColor;
+  final bool? enabled;
 
   const SimpleEditText(
       {Key? key,
-      required this.placeHolder,
+      this.placeHolder,
+      this.hintText,
       this.listener,
       this.onFocusChanged,
       this.alignment = TextAlign.start,
@@ -98,7 +107,11 @@ class SimpleEditText extends StatefulWidget {
       this.minLines,
       this.maxLength,
       this.textInputAction,
-      this.order = 1})
+      this.order = 1,
+      this.suffixIcon,
+      this.prefixIcon,
+      this.fillColor,
+      this.enabled})
       : super(key: key);
 
   @override
@@ -116,8 +129,14 @@ class _SimpleEditTextState extends State<SimpleEditText> {
       }
     });
     _focusNode.onKey = (FocusNode node, RawKeyEvent event) {
-      if (event.isKeyPressed(LogicalKeyboardKey.escape)) {
+      if (event.isKeyPressed(LogicalKeyboardKey.escape) ||
+          event.isKeyPressed(LogicalKeyboardKey.arrowLeft) ||
+          event.isKeyPressed(LogicalKeyboardKey.arrowUp)) {
         node.previousFocus();
+        return KeyEventResult.handled;
+      } else if (event.isKeyPressed(LogicalKeyboardKey.arrowRight) ||
+          event.isKeyPressed(LogicalKeyboardKey.arrowDown)) {
+        node.nextFocus();
         return KeyEventResult.handled;
       }
 
@@ -134,7 +153,7 @@ class _SimpleEditTextState extends State<SimpleEditText> {
   @override
   void dispose() {
     widget.controller?.removeListener(_printLatestValue);
-    widget.controller?.dispose();
+    // widget.controller?.dispose();
     super.dispose();
   }
 
@@ -151,6 +170,7 @@ class _SimpleEditTextState extends State<SimpleEditText> {
       child: TextField(
         key: widget.key,
         focusNode: _focusNode,
+        enabled: widget.enabled,
         controller: widget.controller,
         textAlign: widget.alignment,
         keyboardType: widget.keyboardType,
@@ -163,10 +183,17 @@ class _SimpleEditTextState extends State<SimpleEditText> {
         maxLength: widget.maxLength,
         minLines: widget.maxLines,
         decoration: InputDecoration(
+          hintText: widget.hintText,
           labelText: widget.placeHolder,
           labelStyle: TextStyle(
             color: Colors.grey,
           ),
+          isDense: true, // Added this
+          contentPadding: EdgeInsets.all(10),
+          fillColor: widget.fillColor,
+          filled: widget.fillColor != null,
+          prefixIcon: widget.prefixIcon,
+          suffixIcon: widget.suffixIcon,
           border: widget.border,
           focusedBorder: widget.focusedBorder,
         ),
@@ -191,6 +218,7 @@ class WebSimpleTextView extends StatefulWidget {
   final int? maxLength;
   final TextInputAction? textInputAction;
   final double order;
+  final bool? enabled;
 
   const WebSimpleTextView(
       {Key? key,
@@ -208,7 +236,8 @@ class WebSimpleTextView extends StatefulWidget {
       this.minLines,
       this.maxLength,
       this.textInputAction,
-      this.order = 1})
+      this.order = 1,
+      this.enabled})
       : super(key: key);
 
   @override
@@ -269,6 +298,7 @@ class _WebSimpleTextViewState extends State<WebSimpleTextView> {
                 maxLines: widget.maxLines,
                 textInputAction: widget.textInputAction,
                 order: widget.order,
+                enabled: widget.enabled,
               ),
             ),
           )

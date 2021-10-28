@@ -21,7 +21,7 @@ class SimpleText extends Text {
                 fontSize: fontSize,
                 fontStyle: fontStyle,
                 fontWeight: fontWeight,
-                color: color ?? CustomColors.graySofi(),
+                color: color, //?? CustomColors.graySofi(),
                 backgroundColor: bgColor));
 }
 
@@ -36,7 +36,7 @@ class UnderLineText extends Text {
             textAlign: alignment,
             style: TextStyle(
               fontSize: fontSize,
-              color: color ?? CustomColors.graySofi(),
+              color: color, //?? CustomColors.graySofi(),
               backgroundColor: bgColor,
               decoration: TextDecoration.underline,
             ));
@@ -54,7 +54,7 @@ class BoldText extends Text {
             style: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
-                color: color ?? CustomColors.graySofi(),
+                color: color, //?? CustomColors.graySofi(),
                 backgroundColor: bgColor));
 }
 
@@ -71,7 +71,7 @@ class BoldItalicText extends Text {
                 fontSize: fontSize,
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.bold,
-                color: color ?? CustomColors.graySofi(),
+                color: color, // ?? CustomColors.graySofi(),
                 backgroundColor: bgColor));
 }
 
@@ -87,7 +87,7 @@ class ItalicText extends Text {
             style: TextStyle(
                 fontSize: fontSize,
                 fontStyle: FontStyle.italic,
-                color: color ?? CustomColors.graySofi(),
+                color: color, //?? CustomColors.graySofi(),
                 backgroundColor: bgColor));
 }
 
@@ -103,7 +103,7 @@ class BoldUnderLineText extends Text {
             style: TextStyle(
               fontSize: fontSize,
               fontWeight: FontWeight.bold,
-              color: color ?? CustomColors.graySofi(),
+              color: color, //?? CustomColors.graySofi(),
               backgroundColor: bgColor,
               decoration: TextDecoration.underline,
             ));

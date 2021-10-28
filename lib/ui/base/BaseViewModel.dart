@@ -1,10 +1,11 @@
+import 'package:UEnicsERP/data/repository/service_locator.dart';
 import 'package:flutter/cupertino.dart';
 import '../../data/AppDataManager.dart';
 import '../../data/DataManager.dart';
 /*import 'package:praman_flutter/data/AppDataManager.dart';
 import 'package:praman_flutter/data/DataManager.dart';*/
 
-abstract class BaseViewModel<N> extends ChangeNotifier {
+abstract class BaseViewModel<N, L extends Object> extends ChangeNotifier {
   bool _mIsLoading = false;
   late AppDataManager _dataManager;
   late BuildContext _buildContext;
@@ -16,6 +17,19 @@ abstract class BaseViewModel<N> extends ChangeNotifier {
 
   BuildContext get buildContext {
     return _buildContext;
+  }
+
+  L? _repository;
+
+  L? getRepository() {
+    if (_repository == null) {
+      try {
+        _repository = locator.get<L>();
+      } catch (e) {
+        _repository = null;
+      }
+    }
+    return _repository;
   }
 
   N? _navigator;

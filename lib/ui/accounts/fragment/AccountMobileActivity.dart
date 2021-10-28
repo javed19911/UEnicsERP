@@ -1,9 +1,9 @@
 import 'package:UEnicsERP/data/models/mMenu.dart';
-import 'package:UEnicsERP/ui/Accounts/vmAccount.dart';
 import 'package:UEnicsERP/utils/myAppBar.dart';
 import 'package:flutter/material.dart';
 
 import '../../base/BaseActivity.dart';
+import '../account_vm.dart';
 
 class AccountMobileActivity extends StatefulWidget {
   late Menu menu;
@@ -15,7 +15,7 @@ class AccountMobileActivity extends StatefulWidget {
 }
 
 class _AccountMobileActivityState
-    extends BaseActivity<AccountMobileActivity, vmAccount> {
+    extends BaseActivity<AccountMobileActivity, AccountVM> {
   @override
   void onCreate() {
     // TODO: implement onCreate
@@ -25,9 +25,9 @@ class _AccountMobileActivityState
   }
 
   @override
-  Widget getWidget(BuildContext context, vmAccount? view_model) {
+  Widget getWidget(BuildContext context, AccountVM? view_model) {
     return Scaffold(
-      appBar: MyAppBar(),
+      // appBar: MyAppBar(),
       body: Center(
         child: Text("Accounts"),
       ),

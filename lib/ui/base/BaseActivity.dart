@@ -12,7 +12,7 @@ abstract class BaseActivity<S extends StatefulWidget, VM extends BaseViewModel>
   int _create_count = 0;
   bool isCreated = false;
 
-  Widget getWidget(BuildContext context, VM? view_model);
+  Widget getWidget(BuildContext context, VM? viewModel);
 
   VM? getViewModel() {
     try {
@@ -107,28 +107,63 @@ abstract class BaseActivity<S extends StatefulWidget, VM extends BaseViewModel>
   }
 
   void clearAllActivities() {
-    Navigator.pushNamedAndRemoveUntil(context, "/", (r) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil("/", (r) => false);
   }
 
   void onActivityResult(int result_code, ActivityResult result) {}
 
   void finish() {
-    Navigator.pop(context, ActivityResult());
+    Navigator.of(context).pop(ActivityResult());
   }
 
-  void startActivity(Widget activity) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => activity),
-    );
+  void startActivity(Widget activity,
+      {bool rootNavigator = false, NavigatorState? navigatorKey}) {
+    if (navigatorKey != null) {
+      navigatorKey.pushReplacement(
+        MaterialPageRoute(builder: (context) => activity),
+      );
+    } else {
+      Navigator.of(context, rootNavigator: rootNavigator).push(
+        MaterialPageRoute(builder: (context) => activity),
+      );
+    }
   }
 
-  void startNamedActivity(String page, {Object? args}) {
-    Navigator.pushNamed(context, page, arguments: args);
+  void replaceActivity(Widget activity,
+      {bool rootNavigator = false, NavigatorState? navigatorKey}) {
+    if (navigatorKey != null) {
+      navigatorKey.pushReplacement(
+        MaterialPageRoute(builder: (context) => activity),
+      );
+    } else {
+      Navigator.of(context, rootNavigator: rootNavigator).pushReplacement(
+        MaterialPageRoute(builder: (context) => activity),
+      );
+    }
   }
 
-  void replaceNamedActivity(String page, {Object? args}) {
-    Navigator.pushReplacementNamed(context, page, arguments: args);
+  void startNamedActivity(String page,
+      {Object? args,
+      bool rootNavigator = false,
+      NavigatorState? navigatorKey}) {
+    if (navigatorKey != null) {
+      navigatorKey.pushNamed(page, arguments: args);
+    } else {
+      Navigator.of(context, rootNavigator: rootNavigator)
+          .pushNamed(page, arguments: args);
+    }
+  }
+
+  void replaceNamedActivity(String page,
+      {Object? args,
+      bool rootNavigator = false,
+      NavigatorState? navigatorKey}) {
+    if (navigatorKey != null) {
+      navigatorKey.pushNamed(page, arguments: args);
+    } else {
+      Navigator.of(context, rootNavigator: rootNavigator)
+          .pushReplacementNamed(page, arguments: args);
+    }
   }
 
   void setActivityResult(ActivityResultCode code, dynamic result) {

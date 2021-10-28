@@ -3,7 +3,7 @@ class Menu {
   late String _name;
   late String _image;
   late String _action;
-  late List<Menu> _sub_menus;
+  List<Menu>? _sub_menus;
 
   String get code => _code;
 
@@ -29,9 +29,9 @@ class Menu {
     _action = value;
   }
 
-  List<Menu> get subMenus => _sub_menus;
+  List<Menu>? get subMenus => _sub_menus;
 
-  set subMenus(List<Menu> value) {
+  set subMenus(List<Menu>? value) {
     _sub_menus = value;
   }
 
@@ -43,7 +43,7 @@ class Menu {
     if (json["sub_menus"] != null) {
       _sub_menus = [];
       json["sub_menus"].forEach((v) {
-        _sub_menus.add(Menu.fromJson(v));
+        _sub_menus?.add(Menu.fromJson(v));
       });
     }
   }
@@ -55,7 +55,7 @@ class Menu {
     map["image"] = _image;
     map["action"] = _action;
     if (_sub_menus != null) {
-      map["sub_menus"] = _sub_menus.map((v) => v.toJson()).toList();
+      map["sub_menus"] = _sub_menus?.map((v) => v.toJson()).toList();
     }
     return map;
   }

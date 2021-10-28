@@ -1,9 +1,10 @@
-import 'package:UEnicsERP/ui/dashboard/vmDashboard.dart';
+import 'package:UEnicsERP/ui/dashboard/dashboard_vm.dart';
 import 'package:UEnicsERP/utils/clock.dart';
 import 'package:UEnicsERP/utils/customWidget/customText.dart';
 import 'package:UEnicsERP/utils/myAppBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../main.dart';
 import '../../base/BaseActivity.dart';
@@ -18,7 +19,7 @@ class DashboardWebActivity extends StatefulWidget {
 }
 
 class _DashboardWebActivityState
-    extends BaseActivity<DashboardWebActivity, vmDashboard> {
+    extends BaseActivity<DashboardWebActivity, DashboardVM> {
   @override
   void onCreate() {
     // TODO: implement onCreate
@@ -26,7 +27,7 @@ class _DashboardWebActivityState
     if (vm != null) {
       Future.delayed(const Duration(milliseconds: 100), () {
         vm.getUser();
-        vm.getMenus();
+        vm.getMenus(context);
       });
     }
 
@@ -34,13 +35,21 @@ class _DashboardWebActivityState
   }
 
   @override
-  Widget getWidget(BuildContext context, vmDashboard? view_model) {
+  Widget getWidget(BuildContext context, DashboardVM? viewModel) {
     return Scaffold(
-      appBar: MyAppBar(),
+      // appBar: MyAppBar(),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Container(
+              height: 100,
+              padding: EdgeInsets.all(5),
+              child: Image(
+                image: AssetImage("lib/res/drawable/logo.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
             BoldText(
               "UEnics Pvt. Ltd.",
               fontSize: 30,
@@ -49,7 +58,7 @@ class _DashboardWebActivityState
               height: 20,
             ),
             BoldText(
-              "Hi ${view_model?.userName},",
+              "Hi ${viewModel?.userName},",
               fontSize: 20,
             ),
             SizedBox(
@@ -72,9 +81,9 @@ class _DashboardWebActivityState
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10),
                   shrinkWrap: true,
-                  itemCount: view_model?.menus.length,
+                  itemCount: viewModel?.menus.length,
                   itemBuilder: (BuildContext context, int index) {
-                    var menu = view_model!.menus[index];
+                    var menu = viewModel!.menus[index];
                     return Card(
                       elevation: 10,
                       shape: RoundedRectangleBorder(

@@ -10,6 +10,7 @@ class Logo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       padding: EdgeInsets.all(7),
       child: Column(
         mainAxisSize: MainAxisSize.min,

@@ -1,18 +1,28 @@
 import 'dart:io';
 
 import 'package:UEnicsERP/res/color.dart';
+import 'package:UEnicsERP/ui/master_page/master_activity.dart';
+import 'package:UEnicsERP/data/repository/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 import 'data/AppDataManager.dart';
+import 'data/local/hive_init.dart';
 import 'multiLanguage/lanuages/language.dart';
 import 'multiLanguage/localization_delegate.dart';
 import 'res/string/Strings.dart';
 import 'route_generator.dart';
+import 'ui/login/login_activity.dart';
+import 'ui/login/login_vm.dart';
 
-void main() {
+void main() async {
+  await initHive();
+  setupLocator();
+  setPathUrlStrategy();
   runApp(MyApp());
 }
 
@@ -32,6 +42,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Locale? _locale;
   AppDataManager _dataManager = AppDataManager();
+
   void setLocale(Locale locale) {
     setState(() {
       _locale = locale;
@@ -50,18 +61,27 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: Strings.app_name,
       theme: ThemeData(
         textTheme: GoogleFonts.latoTextTheme(
           Theme.of(context).textTheme,
-        ),
+        ).apply(bodyColor: CustomColors.graySofi()),
+        // scaffoldBackgroundColor: CustomColors.bgColor,
+        scaffoldBackgroundColor: Colors.white70,
         brightness: Brightness.light,
-        primaryColor: const Color(0xFF02BB9F),
-        primaryColorDark: const Color(0xFF038a75),
-        accentColor: const Color(0xFFFFAD32),
+        primaryColor: CustomColors.primaryColor,
+        // primaryColorDark: CustomColors.primaryColor,
+        canvasColor: CustomColors.secondaryColor,
+        // primaryColorDark: CustomColors.p,
+        // accentColor: const Color(0xFFFFAD32),
       ),
       initialRoute: '/',
       onGenerateRoute: RouteGenerator.generateRoute,
+      // home: ChangeNotifierProvider(
+      //   create: (context) => vmLogin(),
+      //   child: LoginActivity(),
+      // ),
       locale: _locale,
       supportedLocales: [
         Locale('en'),

@@ -10,5 +10,6 @@ class MyAppBar extends AppBar {
           title: Logo(),
           centerTitle: false,
           backgroundColor: CustomColors.grayLightest(),
+          // backgroundColor: CustomColors.primaryColor,
         );
 }

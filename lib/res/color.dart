@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
 extension CustomColors on Colors {
+  static const primaryColor = Color(0xFF2697FF);
+  // static const secondaryColor = Color(0xFF2A2D3E);
+  static const secondaryColor = Color(0xFFF6F4F5);
+  // static const bgColor = Color(0xFFcbc3d0);
+  static const bgColor = Color(0xFFF3F4F7);
+  static const logoBgColor = Color(0xFFD28C87);
+
   static Color graySofi({double colorOpacity = 1.0}) =>
       Color(0xFF5E5E5E).withOpacity(colorOpacity);
 

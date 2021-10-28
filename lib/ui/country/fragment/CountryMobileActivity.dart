@@ -1,6 +1,6 @@
 import 'package:UEnicsERP/res/color.dart';
 import 'package:UEnicsERP/ui/base/BaseActivity.dart';
-import 'package:UEnicsERP/ui/country/vmCountry.dart';
+import 'package:UEnicsERP/ui/country/country_vm.dart';
 import 'package:UEnicsERP/utils/customWidget/customText.dart';
 import 'package:UEnicsERP/utils/customWidget/editText.dart';
 import 'package:UEnicsERP/utils/customWidget/searchableTextField.dart';
@@ -15,15 +15,15 @@ class CountryMobileActivity extends StatefulWidget {
 }
 
 class _CountryMobileActivityState
-    extends BaseActivity<CountryMobileActivity, vmCountry> {
+    extends BaseActivity<CountryMobileActivity, CountryVM> {
   @override
-  Widget getWidget(BuildContext context, vmCountry? viewModel) {
+  Widget getWidget(BuildContext context, CountryVM? viewModel) {
     return Scaffold(
-      appBar: MyAppBar(),
+      // appBar: MyAppBar(),
       body: Container(
         // color: CustomColors.activityBg(),
         padding: new EdgeInsets.all(20.0),
-        child: Row(
+        child: Column(
           children: [
             Flexible(
               flex: 1,
