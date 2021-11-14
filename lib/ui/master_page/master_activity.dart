@@ -1,6 +1,7 @@
 import 'package:UEnicsERP/ui/base/BaseActivity.dart';
 import 'package:UEnicsERP/utils/customWidget/customText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -16,6 +17,8 @@ class MasterActivity extends StatefulWidget {
 }
 
 class _MasterActivityState extends BaseActivity<MasterActivity, MasterVM> {
+  FocusNode _focusNode = FocusNode();
+
   @override
   void onCreate() {
     // TODO: implement onCreate
@@ -30,11 +33,36 @@ class _MasterActivityState extends BaseActivity<MasterActivity, MasterVM> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    /*_focusNode.onKey = (FocusNode node, RawKeyEvent event) {
+      //if (event is RawKeyDownEvent) {
+      if (event.isKeyPressed(LogicalKeyboardKey.space)) {
+        print("space bar pressed");
+        return KeyEventResult.handled;
+      }
+      //}
+      return KeyEventResult.ignored;
+    };*/
+  }
+
+  @override
   Widget getWidget(BuildContext context, MasterVM? viewModel) {
-    return ScreenTypeLayout(
+    return
+        // RawKeyboardListener(
+        // autofocus: true,
+        // focusNode: _focusNode,
+        // onKey: (event) {
+        //   // print(event.physicalKey);
+        // },
+        // child:
+        ScreenTypeLayout(
       mobile: MasterMobileActivity(),
       tablet: MasterMobileActivity(),
       desktop: MasterWebActivity(),
+      // ),
     );
   }
 }

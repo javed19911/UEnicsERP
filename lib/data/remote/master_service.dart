@@ -105,26 +105,99 @@ class MasterServices extends Webservice implements IMaster {
               "code": "ITM",
               "name": "Item Master",
               "image": "lib/res/drawable/acc.jpeg",
+              "action": "/item",
+              // "sub_menus": [
+              //   {
+              //     "code": "DISPLAY",
+              //     "name": "Display",
+              //     "image": "lib/res/drawable/inventory.png",
+              //     "action": "/",
+              //   },
+              //   {
+              //     "code": "CREATE",
+              //     "name": "Create",
+              //     "image": "lib/res/drawable/trans.png",
+              //     "action": "/country",
+              //   },
+              //   {
+              //     "code": "ALTER",
+              //     "name": "Alter",
+              //     "image": "lib/res/drawable/utilities.jpeg",
+              //   },
+              // ]
+            },
+            {
+              "code": "BATCH",
+              "name": "Batch Master",
+              "image": "lib/res/drawable/acc.jpeg",
               "sub_menus": [
                 {
-                  "code": "VIEW",
-                  "name": "View",
+                  "code": "DISPLAY",
+                  "name": "Display",
                   "image": "lib/res/drawable/inventory.png",
                   "action": "/",
                 },
                 {
-                  "code": "EDIT",
-                  "name": "Edit",
+                  "code": "CREATE",
+                  "name": "Create",
                   "image": "lib/res/drawable/trans.png",
                   "action": "/country",
                 },
                 {
-                  "code": "DELETE",
-                  "name": "Delete",
+                  "code": "ALTER",
+                  "name": "Alter",
                   "image": "lib/res/drawable/utilities.jpeg",
                 },
               ]
-            }
+            },
+            {
+              "code": "ITM_GRP",
+              "name": "Item Group",
+              "image": "lib/res/drawable/acc.jpeg",
+              "sub_menus": [
+                {
+                  "code": "DISPLAY",
+                  "name": "Display",
+                  "image": "lib/res/drawable/inventory.png",
+                  "action": "/",
+                },
+                {
+                  "code": "CREATE",
+                  "name": "Create",
+                  "image": "lib/res/drawable/trans.png",
+                  "action": "/country",
+                },
+                {
+                  "code": "ALTER",
+                  "name": "Alter",
+                  "image": "lib/res/drawable/utilities.jpeg",
+                },
+              ]
+            },
+            {
+              "code": "UNIT",
+              "name": "Unit of Measure",
+              "image": "lib/res/drawable/acc.jpeg",
+              "sub_menus": [
+                {
+                  "code": "DISPLAY",
+                  "name": "Display",
+                  "image": "lib/res/drawable/inventory.png",
+                  "action": "/",
+                },
+                {
+                  "code": "CREATE",
+                  "name": "Create",
+                  "image": "lib/res/drawable/trans.png",
+                  "action": "/country",
+                },
+                {
+                  "code": "ALTER",
+                  "name": "Alter",
+                  "image": "lib/res/drawable/utilities.jpeg",
+                },
+              ]
+            },
           ]
         },
         {
@@ -140,10 +213,10 @@ class MasterServices extends Webservice implements IMaster {
           "action": "/task"
         },
         {
-          "code": "DOC",
-          "name": "Documents",
+          "code": "RPT",
+          "name": "Report",
           "image": "lib/res/icons/menu_doc.svg",
-          "action": "/document"
+          "action": "/report"
         },
         {
           "code": "STR",
@@ -158,10 +231,10 @@ class MasterServices extends Webservice implements IMaster {
           "action": "/notification"
         },
         {
-          "code": "PRF",
-          "name": "Profile",
+          "code": "EMP",
+          "name": "Employee",
           "image": "lib/res/icons/menu_profile.svg",
-          "action": "/profile"
+          "action": "/employee"
         },
         {
           "code": "SET",

@@ -96,9 +96,11 @@ abstract class BaseActivity<S extends StatefulWidget, VM extends BaseViewModel>
                             currentFocus.unfocus();
                           }
                         },
-                        child: FocusTraversalGroup(
-                            policy: OrderedTraversalPolicy(),
-                            child: getWidget(context, getViewModel()))),
+                        // child: FocusTraversalGroup(
+                        //     policy: OrderedTraversalPolicy(),
+                        child: getWidget(context, getViewModel())
+                        // )
+                        ),
                   ),
                 ),
               )

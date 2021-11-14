@@ -25,7 +25,8 @@ class CustomInputFormatter {
 
 class BoarderRoundTextView extends SimpleEditText {
   final String placeHolder;
-  final ValueChanged<String>? listener;
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<FocusNode>? onFocusCreated;
   final ValueChanged<bool>? onFocusChanged;
   final TextEditingController? controller;
   final TextAlign alignment;
@@ -41,7 +42,8 @@ class BoarderRoundTextView extends SimpleEditText {
   const BoarderRoundTextView(
       {Key? key,
       required this.placeHolder,
-      this.listener,
+      this.onChanged,
+      this.onFocusCreated,
       this.onFocusChanged,
       this.alignment = TextAlign.start,
       this.controller,
@@ -56,7 +58,8 @@ class BoarderRoundTextView extends SimpleEditText {
       : super(
             key: key,
             placeHolder: placeHolder,
-            listener: listener,
+            onChanged: onChanged,
+            onFocusCreated: onFocusCreated,
             onFocusChanged: onFocusChanged,
             alignment: alignment,
             controller: controller,
@@ -73,7 +76,8 @@ class BoarderRoundTextView extends SimpleEditText {
 class SimpleEditText extends StatefulWidget {
   final String? placeHolder;
   final String? hintText;
-  final ValueChanged<String>? listener;
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<FocusNode>? onFocusCreated;
   final ValueChanged<bool>? onFocusChanged;
   final TextEditingController? controller;
   final TextAlign alignment;
@@ -90,12 +94,14 @@ class SimpleEditText extends StatefulWidget {
   final Widget? prefixIcon;
   final Color? fillColor;
   final bool? enabled;
+  final FocusOnKeyCallback? onKey;
 
   const SimpleEditText(
       {Key? key,
       this.placeHolder,
       this.hintText,
-      this.listener,
+      this.onChanged,
+      this.onFocusCreated,
       this.onFocusChanged,
       this.alignment = TextAlign.start,
       this.controller,
@@ -111,7 +117,8 @@ class SimpleEditText extends StatefulWidget {
       this.suffixIcon,
       this.prefixIcon,
       this.fillColor,
-      this.enabled})
+      this.enabled,
+      this.onKey})
       : super(key: key);
 
   @override
@@ -120,46 +127,62 @@ class SimpleEditText extends StatefulWidget {
 
 class _SimpleEditTextState extends State<SimpleEditText> {
   final _focusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
+    widget.onFocusCreated?.call(_focusNode);
     _focusNode.addListener(() {
       if (widget.onFocusChanged != null) {
         widget.onFocusChanged!(_focusNode.hasFocus);
       }
     });
     _focusNode.onKey = (FocusNode node, RawKeyEvent event) {
-      if (event.isKeyPressed(LogicalKeyboardKey.escape) ||
-          event.isKeyPressed(LogicalKeyboardKey.arrowLeft) ||
-          event.isKeyPressed(LogicalKeyboardKey.arrowUp)) {
-        node.previousFocus();
-        return KeyEventResult.handled;
-      } else if (event.isKeyPressed(LogicalKeyboardKey.arrowRight) ||
-          event.isKeyPressed(LogicalKeyboardKey.arrowDown)) {
-        node.nextFocus();
-        return KeyEventResult.handled;
+      if (event is RawKeyDownEvent) {
+        if (widget.onKey != null) {
+          KeyEventResult result = widget.onKey!(node, event);
+          if (result != KeyEventResult.ignored) {
+            return result;
+          }
+        }
+        if (event.isKeyPressed(LogicalKeyboardKey.escape) ||
+            // event.isKeyPressed(LogicalKeyboardKey.arrowLeft) ||
+            event.isKeyPressed(LogicalKeyboardKey.arrowUp)) {
+          //node.previousFocus();
+          node.ancestors.last.requestFocus();
+          print("ancestors length : ${node.ancestors.length}");
+          print("descendants length : ${node.descendants.length}");
+          print("ancestors first : ${node.ancestors.first}");
+          return KeyEventResult.handled;
+        } else if (
+            // event.isKeyPressed(LogicalKeyboardKey.arrowRight) ||
+            event.isKeyPressed(LogicalKeyboardKey.arrowDown)) {
+          node.nextFocus();
+          return KeyEventResult.handled;
+        }
       }
 
       /*else if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
         node.nextFocus();
         return KeyEventResult.handled;
       }*/
+
       //print("${node}  : ${event.physicalKey}");
       return KeyEventResult.ignored;
     };
-    widget.controller?.addListener(_printLatestValue);
+    // widget.controller?.addListener(_printLatestValue);
   }
 
   @override
   void dispose() {
-    widget.controller?.removeListener(_printLatestValue);
+    // widget.controller?.removeListener(_printLatestValue);
     // widget.controller?.dispose();
     super.dispose();
   }
 
   void _printLatestValue() {
-    if (widget.listener != null) {
-      widget.listener!("${widget.controller?.text}");
+    if (widget.onChanged != null) {
+      widget.onChanged!("${widget.controller?.text}");
     }
   }
 
@@ -182,13 +205,15 @@ class _SimpleEditTextState extends State<SimpleEditText> {
         maxLines: widget.maxLines,
         maxLength: widget.maxLength,
         minLines: widget.maxLines,
+        onChanged: widget.onChanged,
         decoration: InputDecoration(
           hintText: widget.hintText,
           labelText: widget.placeHolder,
           labelStyle: TextStyle(
             color: Colors.grey,
           ),
-          isDense: true, // Added this
+          isDense: true,
+          // Added this
           contentPadding: EdgeInsets.all(10),
           fillColor: widget.fillColor,
           filled: widget.fillColor != null,
@@ -205,7 +230,8 @@ class _SimpleEditTextState extends State<SimpleEditText> {
 class WebSimpleTextView extends StatefulWidget {
   final double placeHolderRatio;
   final String placeHolder;
-  final ValueChanged<String>? listener;
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<FocusNode>? onFocusCreated;
   final ValueChanged<bool>? onFocusChanged;
   final TextEditingController? controller;
   final TextAlign alignment;
@@ -224,7 +250,8 @@ class WebSimpleTextView extends StatefulWidget {
       {Key? key,
       required this.placeHolder,
       this.placeHolderRatio = 0.5,
-      this.listener,
+      this.onChanged,
+      this.onFocusCreated,
       this.onFocusChanged,
       this.alignment = TextAlign.start,
       this.controller,
@@ -247,6 +274,7 @@ class WebSimpleTextView extends StatefulWidget {
 class _WebSimpleTextViewState extends State<WebSimpleTextView> {
   var left = 1;
   var right = 1;
+
   @override
   void initState() {
     var c = "${widget.placeHolderRatio}".length -
@@ -285,7 +313,8 @@ class _WebSimpleTextViewState extends State<WebSimpleTextView> {
               height: 28,
               child: SimpleEditText(
                 placeHolder: "",
-                listener: widget.listener,
+                onChanged: widget.onChanged,
+                onFocusCreated: widget.onFocusCreated,
                 onFocusChanged: widget.onFocusChanged,
                 alignment: widget.alignment,
                 controller: widget.controller,

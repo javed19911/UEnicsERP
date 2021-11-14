@@ -6,9 +6,9 @@ import 'package:UEnicsERP/ui/country/country_activity.dart';
 import 'package:UEnicsERP/ui/country/country_vm.dart';
 import 'package:UEnicsERP/ui/dashboard/dashboard_activity.dart';
 import 'package:UEnicsERP/ui/dashboard/dashboard_vm.dart';
-import 'package:UEnicsERP/ui/inventory/inventory_activity.dart';
+import 'package:UEnicsERP/ui/employee/employee_activity.dart';
+import 'package:UEnicsERP/ui/employee/employee_vm.dart';
 import 'package:UEnicsERP/ui/inventory/inventory_master_page.dart';
-import 'package:UEnicsERP/ui/inventory/inventory_vm.dart';
 import 'package:UEnicsERP/ui/ledger/ledger_master_page.dart';
 import 'package:UEnicsERP/utils/customWidget/customText.dart';
 import 'package:flutter/material.dart';
@@ -66,6 +66,12 @@ class MasterRouteGenerator {
             builder: (_) => ChangeNotifierProvider(
                   create: (context) => CountryVM(),
                   child: CountryActivity(),
+                ));
+      case '/employee':
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                  create: (context) => EmployeeVM(),
+                  child: EmployeeActivity(),
                 ));
       default:
         // If there is no such named route in the switch statement, e.g. /third

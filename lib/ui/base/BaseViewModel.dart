@@ -5,7 +5,7 @@ import '../../data/DataManager.dart';
 /*import 'package:praman_flutter/data/AppDataManager.dart';
 import 'package:praman_flutter/data/DataManager.dart';*/
 
-abstract class BaseViewModel<N, L extends Object> extends ChangeNotifier {
+abstract class BaseViewModel<N, R extends Object> extends ChangeNotifier {
   bool _mIsLoading = false;
   late AppDataManager _dataManager;
   late BuildContext _buildContext;
@@ -19,12 +19,12 @@ abstract class BaseViewModel<N, L extends Object> extends ChangeNotifier {
     return _buildContext;
   }
 
-  L? _repository;
+  R? _repository;
 
-  L? getRepository() {
+  R? getRepository() {
     if (_repository == null) {
       try {
-        _repository = locator.get<L>();
+        _repository = locator.get<R>();
       } catch (e) {
         _repository = null;
       }

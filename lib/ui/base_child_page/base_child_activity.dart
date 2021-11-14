@@ -1,7 +1,5 @@
 import 'package:UEnicsERP/data/models/mMenu.dart';
 import 'package:UEnicsERP/ui/base/BaseActivity.dart';
-import 'package:UEnicsERP/ui/inventory/inventory_route_generator.dart';
-import 'package:UEnicsERP/ui/inventory/inventory_vm.dart';
 import 'package:UEnicsERP/ui/master_page/components/top_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -95,10 +93,13 @@ class _BaseChildActivityState
           Expanded(
             child: WillPopScope(
                 onWillPop: _isExitDesired,
-                child: Navigator(
-                  key: vm!.navigatorKey,
-                  initialRoute: vm!.initialRoute,
-                  onGenerateRoute: widget.onGenerateRoute,
+                child: FocusTraversalGroup(
+                  policy: OrderedTraversalPolicy(),
+                  child: Navigator(
+                    key: vm!.navigatorKey,
+                    initialRoute: vm!.initialRoute,
+                    onGenerateRoute: widget.onGenerateRoute,
+                  ),
                 )),
           )
         ],

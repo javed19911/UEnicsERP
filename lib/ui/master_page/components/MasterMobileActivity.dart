@@ -6,7 +6,6 @@ import 'package:UEnicsERP/ui/country/country_activity.dart';
 import 'package:UEnicsERP/ui/country/country_vm.dart';
 import 'package:UEnicsERP/ui/dashboard/dashboard_activity.dart';
 import 'package:UEnicsERP/ui/dashboard/dashboard_vm.dart';
-import 'package:UEnicsERP/ui/inventory/inventory_activity.dart';
 import 'package:UEnicsERP/utils/customWidget/customText.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

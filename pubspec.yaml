@@ -48,6 +48,8 @@ dependencies:
   path_provider: ^2.0.1
   url_strategy: ^0.2.0
   flutter_svg: ^0.23.0+1
+  pluto_grid: ^2.5.0
+  csv: ^5.0.0
 
 dev_dependencies:
   flutter_test:

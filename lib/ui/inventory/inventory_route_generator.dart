@@ -3,6 +3,8 @@ import 'package:UEnicsERP/ui/Accounts/account_activity.dart';
 import 'package:UEnicsERP/ui/accounts/account_vm.dart';
 import 'package:UEnicsERP/ui/country/country_activity.dart';
 import 'package:UEnicsERP/ui/country/country_vm.dart';
+import 'package:UEnicsERP/ui/inventory/item/item_master_activity.dart';
+import 'package:UEnicsERP/ui/inventory/item/item_master_vm.dart';
 import 'package:UEnicsERP/utils/customWidget/customText.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +31,12 @@ class InventoryRouteGenerator {
             builder: (_) => ChangeNotifierProvider(
                   create: (context) => CountryVM(),
                   child: CountryActivity(),
+                ));
+      case '/item':
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                  create: (context) => ItemMasterVM(),
+                  child: ItemMasterActivity(),
                 ));
       default:
         // If there is no such named route in the switch statement, e.g. /third

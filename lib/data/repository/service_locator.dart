@@ -1,5 +1,7 @@
 import 'package:UEnicsERP/data/repository/auth/auth_repository.dart';
 import 'package:UEnicsERP/data/repository/dashboard/dashboard_repository.dart';
+import 'package:UEnicsERP/data/repository/employee/employee_repo.dart';
+import 'package:UEnicsERP/data/repository/item/item_repo.dart';
 import 'package:UEnicsERP/data/repository/ledger/ledger_repo.dart';
 import 'package:UEnicsERP/data/repository/master/master_repo.dart';
 import 'package:get_it/get_it.dart';
@@ -11,4 +13,6 @@ void setupLocator() {
   locator.registerFactory<DashboardRepository>(() => DashboardRepository());
   locator.registerFactory<MasterRepo>(() => MasterRepo());
   locator.registerFactory<LedgerRepo>(() => LedgerRepo());
+  locator.registerFactory<EmployeeRepo>(() => EmployeeRepo());
+  locator.registerFactory<ItemRepo>(() => ItemRepo());
 }

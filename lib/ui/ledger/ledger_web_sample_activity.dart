@@ -77,7 +77,7 @@ class _LedgerWebSampleActivityState
                                 children: [
                                   Container(
                                     width: double.infinity,
-                                    color: CustomColors.grayLightest(),
+                                    color: CustomColors.primaryColor,
                                     padding: EdgeInsets.all(5),
                                     child: SimpleText(
                                       "Details",
@@ -148,7 +148,7 @@ class _LedgerWebSampleActivityState
                                 children: [
                                   Container(
                                     width: double.infinity,
-                                    color: CustomColors.grayLightest(),
+                                    color: CustomColors.primaryColor,
                                     padding: EdgeInsets.all(5),
                                     child: SimpleText(
                                       "Address",
