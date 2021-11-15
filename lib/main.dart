@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:UEnicsERP/res/color.dart';
 import 'package:UEnicsERP/ui/master_page/master_activity.dart';
 import 'package:UEnicsERP/data/repository/service_locator.dart';
+import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,15 +17,90 @@ import 'multiLanguage/lanuages/language.dart';
 import 'multiLanguage/localization_delegate.dart';
 import 'res/string/Strings.dart';
 import 'route_generator.dart';
-import 'ui/login/login_activity.dart';
-import 'ui/login/login_vm.dart';
+// import 'ui/login/login_activity.dart';
+// import 'ui/login/login_vm.dart';
+//
+// import 'dart:io';
+//
+// import 'package:pdf/widgets.dart' as pw;
+//
+// import 'dart:typed_data';
+//
+// import 'package:pdf/pdf.dart';
+// import 'package:printing/printing.dart';
 
 void main() async {
   await initHive();
   setupLocator();
   setPathUrlStrategy();
   runApp(MyApp());
+
+  // final pdf = pw.Document();
+  //
+  // pdf.addPage(
+  //   pw.Page(
+  //     build: (pw.Context context) => pw.Center(
+  //       child: pw.Text('Hello World!'),
+  //     ),
+  //   ),
+  // );
+
+  // final file = File('example.pdf');
+  // await file.writeAsBytes(await pdf.save());
 }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp(this.title, {Key? key}) : super(key: key);
+//
+//   final String title;
+//
+//   void saveFile() async {
+//     await FileSaver.instance.saveFile(
+//         "File", await _generatePdf(PdfPageFormat.a4, title), "pdf",
+//         mimeType: MimeType.PDF);
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     saveFile();
+//
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(title: Text(title)),
+//         body: PdfPreview(
+//           build: (format) => _generatePdf(format, title),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Future<Uint8List> _generatePdf(PdfPageFormat format, String title) async {
+//     final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
+//     final font = await PdfGoogleFonts.nunitoExtraLight();
+//
+//     pdf.addPage(
+//       pw.Page(
+//         pageFormat: format,
+//         build: (context) {
+//           return pw.Column(
+//             children: [
+//               pw.SizedBox(
+//                 width: double.infinity,
+//                 child: pw.FittedBox(
+//                   child: pw.Text(title, style: pw.TextStyle(font: font)),
+//                 ),
+//               ),
+//               pw.SizedBox(height: 20),
+//               pw.Flexible(child: pw.FlutterLogo())
+//             ],
+//           );
+//         },
+//       ),
+//     );
+//
+//     return pdf.save();
+//   }
+// }
 
 class MyApp extends StatefulWidget {
   static String createdPrivacyPolicy = 'privacy_policy';

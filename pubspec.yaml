@@ -50,6 +50,10 @@ dependencies:
   flutter_svg: ^0.23.0+1
   pluto_grid: ^2.5.0
   csv: ^5.0.0
+  pdf: ^3.6.2
+  printing: ^5.6.1
+  file_saver: ^0.0.10
+  file_picker: ^4.2.3
 
 dev_dependencies:
   flutter_test:

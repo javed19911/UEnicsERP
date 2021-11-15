@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:UEnicsERP/ui/base/BaseActivity.dart';
 import 'package:UEnicsERP/ui/inventory/item/item_master_vm.dart';
+import 'package:UEnicsERP/utils/customWidget/DataTable/custom_data_table.dart';
 import 'package:UEnicsERP/utils/customWidget/customText.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
@@ -169,58 +170,58 @@ class _ItemMasterActivityState
   }
 
   Widget getGrid() {
-    return PlutoGrid(
+    return CustomDataTable(
       columns: columns,
       rows: rows,
-      configuration: PlutoGridConfiguration(
-          enableGridBorderShadow: false,
-          rowHeight: 30,
-          // enableColumnBorder: true,
-          gridBorderColor: Colors.transparent),
-      onChanged: (PlutoGridOnChangedEvent event) {
-        print(event);
-      },
-      // onLoaded: (PlutoGridOnLoadedEvent event) {
-      //   event.stateManager?.setShowColumnFilter(true);
-      //   // event.stateManager?.setShowLoading(true);
+      // configuration: PlutoGridConfiguration(
+      //     enableGridBorderShadow: false,
+      //     rowHeight: 30,
+      //     // enableColumnBorder: true,
+      //     gridBorderColor: Colors.transparent),
+      // onChanged: (PlutoGridOnChangedEvent event) {
       //   print(event);
       // },
-      onLoaded: (PlutoGridOnLoadedEvent event) {
-        // stateManager = event.stateManager;
-        event.stateManager?.setShowColumnFilter(true);
-        getCsv();
-        // event.stateManager?.refRows.filteredList.
-
-        // stateManager.eventManager.listener((event1) {
-        //   print("listener event...${event1.runtimeType}");
-        //   if (event1 is PlutoGridChangeColumnFilterEvent) {
-        //     var eventFilter = event1;
-        //     if (eventFilter.filterValue.length > 3) {
-        //       _getMandiCommodities({
-        //         "commodity_id": "1",
-        //         "market": eventFilter.filterValue.capitalize()
-        //       });
-        //       stateManager.appendRows(buildRows());
-        //     }
-        //     print(
-        //         'Fliter Value....${eventFilter.filterValue}');
-        //   }
-        // });
-      },
-
-      // createHeader: (stateManager) {
-      //   stateManager.setPageSize(1, notify: false); // default 40
-      //   return BoldText("Test DataGrid");
+      // // onLoaded: (PlutoGridOnLoadedEvent event) {
+      // //   event.stateManager?.setShowColumnFilter(true);
+      // //   // event.stateManager?.setShowLoading(true);
+      // //   print(event);
+      // // },
+      // onLoaded: (PlutoGridOnLoadedEvent event) {
+      //   // stateManager = event.stateManager;
+      //   event.stateManager?.setShowColumnFilter(true);
+      //   getCsv();
+      //   // event.stateManager?.refRows.filteredList.
+      //
+      //   // stateManager.eventManager.listener((event1) {
+      //   //   print("listener event...${event1.runtimeType}");
+      //   //   if (event1 is PlutoGridChangeColumnFilterEvent) {
+      //   //     var eventFilter = event1;
+      //   //     if (eventFilter.filterValue.length > 3) {
+      //   //       _getMandiCommodities({
+      //   //         "commodity_id": "1",
+      //   //         "market": eventFilter.filterValue.capitalize()
+      //   //       });
+      //   //       stateManager.appendRows(buildRows());
+      //   //     }
+      //   //     print(
+      //   //         'Fliter Value....${eventFilter.filterValue}');
+      //   //   }
+      //   // });
       // },
-      createFooter: (stateManager) {
-        stateManager.setPageSize(10, notify: false); // default 40
-        return Column(
-          children: [
-            Divider(),
-            Expanded(child: PlutoPagination(stateManager)),
-          ],
-        );
-      },
+      //
+      // // createHeader: (stateManager) {
+      // //   stateManager.setPageSize(1, notify: false); // default 40
+      // //   return BoldText("Test DataGrid");
+      // // },
+      // createFooter: (stateManager) {
+      //   stateManager.setPageSize(10, notify: false); // default 40
+      //   return Column(
+      //     children: [
+      //       Divider(),
+      //       Expanded(child: PlutoPagination(stateManager)),
+      //     ],
+      //   );
+      // },
     );
   }
 
