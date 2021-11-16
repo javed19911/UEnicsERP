@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:UEnicsERP/ui/base/BaseActivity.dart';
 import 'package:UEnicsERP/ui/inventory/item/item_master_vm.dart';
 import 'package:UEnicsERP/utils/customWidget/DataTable/custom_data_table.dart';
+import 'package:UEnicsERP/utils/customWidget/DataTable/custom_file_picker.dart';
+import 'package:UEnicsERP/utils/customWidget/customButton.dart';
 import 'package:UEnicsERP/utils/customWidget/customText.dart';
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
@@ -134,7 +136,7 @@ class _ItemMasterActivityState
   Widget getWidget(BuildContext context, viewModel) {
     // return getWebWidget();
     return ScreenTypeLayout(
-      mobile: getMobileWidget(),
+      mobile: getWebWidget(padding: 0),
       tablet: getWebWidget(padding: 0),
       desktop: getWebWidget(),
     );
@@ -159,13 +161,36 @@ class _ItemMasterActivityState
   Widget getWebWidget({double padding = 10}) {
     return Container(
       padding: EdgeInsets.all(padding),
-      child: padding > 0
-          ? Card(
-              elevation: 5,
-              clipBehavior: Clip.antiAlias,
-              child: getGrid(),
-            )
-          : getGrid(),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Spacer(),
+              RoundButton(
+                  minWidth: 100,
+                  onPressed: () {
+                    // CustomFilePicker.selectFile(fileExt: FileExt.csv);
+                  },
+                  text: "New"),
+              RoundButton(
+                  minWidth: 100,
+                  onPressed: () {
+                    CustomFilePicker.selectFile(fileExt: FileExt.csv);
+                  },
+                  text: "Import")
+            ],
+          ),
+          Flexible(
+            child: padding > 0
+                ? Card(
+                    elevation: 5,
+                    clipBehavior: Clip.antiAlias,
+                    child: getGrid(),
+                  )
+                : getGrid(),
+          ),
+        ],
+      ),
     );
   }
 
@@ -173,94 +198,6 @@ class _ItemMasterActivityState
     return CustomDataTable(
       columns: columns,
       rows: rows,
-      // configuration: PlutoGridConfiguration(
-      //     enableGridBorderShadow: false,
-      //     rowHeight: 30,
-      //     // enableColumnBorder: true,
-      //     gridBorderColor: Colors.transparent),
-      // onChanged: (PlutoGridOnChangedEvent event) {
-      //   print(event);
-      // },
-      // // onLoaded: (PlutoGridOnLoadedEvent event) {
-      // //   event.stateManager?.setShowColumnFilter(true);
-      // //   // event.stateManager?.setShowLoading(true);
-      // //   print(event);
-      // // },
-      // onLoaded: (PlutoGridOnLoadedEvent event) {
-      //   // stateManager = event.stateManager;
-      //   event.stateManager?.setShowColumnFilter(true);
-      //   getCsv();
-      //   // event.stateManager?.refRows.filteredList.
-      //
-      //   // stateManager.eventManager.listener((event1) {
-      //   //   print("listener event...${event1.runtimeType}");
-      //   //   if (event1 is PlutoGridChangeColumnFilterEvent) {
-      //   //     var eventFilter = event1;
-      //   //     if (eventFilter.filterValue.length > 3) {
-      //   //       _getMandiCommodities({
-      //   //         "commodity_id": "1",
-      //   //         "market": eventFilter.filterValue.capitalize()
-      //   //       });
-      //   //       stateManager.appendRows(buildRows());
-      //   //     }
-      //   //     print(
-      //   //         'Fliter Value....${eventFilter.filterValue}');
-      //   //   }
-      //   // });
-      // },
-      //
-      // // createHeader: (stateManager) {
-      // //   stateManager.setPageSize(1, notify: false); // default 40
-      // //   return BoldText("Test DataGrid");
-      // // },
-      // createFooter: (stateManager) {
-      //   stateManager.setPageSize(10, notify: false); // default 40
-      //   return Column(
-      //     children: [
-      //       Divider(),
-      //       Expanded(child: PlutoPagination(stateManager)),
-      //     ],
-      //   );
-      // },
     );
-  }
-
-  getCsv() async {
-    //create an element rows of type list of list. All the above data set are stored in associate list
-//Let associate be a model class with attributes name,gender and age and associateList be a list of associate model class.
-
-    List<List<dynamic>> rows1 = [];
-    for (int i = 0; i < rows.length; i++) {
-//row refer to each column of a row in csv file and rows refer to each row in a file
-      List<dynamic> row = [];
-      rows[i].cells.keys.forEach((key) {
-        row.add(rows[i].cells[key]?.value);
-      });
-      rows1.add(row);
-    }
-
-//     await SimplePermissions.requestPermission(Permission.WriteExternalStorage);
-//     bool checkPermission = await SimplePermissions.checkPermission(
-//         Permission.WriteExternalStorage);
-//     if (checkPermission) {
-// //store file in documents folder
-//
-//       String dir =
-//           (await getExternalStorageDirectory()).absolute.path + "/documents";
-//       file = "$dir";
-//       print(LOGTAG + " FILE " + file);
-//       File f = new File(file + "filename.csv");
-
-// convert rows to String and write as csv file
-
-    String csv = const ListToCsvConverter().convert(rows1);
-    //f.writeAsString(csv);
-    downloadCSV(csv);
-  }
-
-  void downloadCSV(String csv) async {
-    final content = base64Encode(csv.codeUnits);
-    final url = 'data:text/csv;base64,$content';
-    await launch(url);
   }
 }

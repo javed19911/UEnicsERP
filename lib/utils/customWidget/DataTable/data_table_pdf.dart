@@ -1,23 +1,14 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
-import 'package:csv/csv.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
-import 'package:flutter/material.dart' as material;
 import 'package:pdf/widgets.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:printing/printing.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:path_provider/path_provider.dart';
 
 import 'custom_file_picker.dart';
 import 'i_export.dart';
-// import 'package:universal_html/html.dart' as html;
 
-class DataTablePdf implements IExport {
+class DataTablePdf extends IExport {
   static const PdfColor green =
       PdfColor.fromInt(0xffe06c6c); //darker background color
   static const PdfColor lightGreen =
@@ -28,6 +19,8 @@ class DataTablePdf implements IExport {
   static const PdfColor baseColor = PdfColor.fromInt(0xffD32D2D);
   static const PdfColor _baseTextColor = PdfColor.fromInt(0xffffffff);
   static const PdfColor accentColor = PdfColor.fromInt(0xfff1c0c0);
+
+  DataTablePdf() : super(FileExt.pdf);
 
   Widget pdfHeader() {
     return Container(
@@ -60,18 +53,8 @@ class DataTablePdf implements IExport {
     // final Uint8List fontData = File('open-sans.ttf').readAsBytesSync();
     // final ttf = pw.Font.ttf(fontData.buffer.asByteData());
 
-    //final pw.Document pdf = pw.Document();
-    // final pdf = pw.Document();
     final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
     final font = await PdfGoogleFonts.nunitoExtraLight();
-
-    // pdf.addPage(pw.Page(
-    //     pageFormat: PdfPageFormat.a4,
-    //     build: (pw.Context context) {
-    //       return pw.Center(
-    //         child: pw.Text('Hello World', style: pw.TextStyle(font: font)),
-    //       ); // Center
-    //     })); // Page
 
     pdf.addPage(pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
@@ -159,8 +142,7 @@ class DataTablePdf implements IExport {
               ),
             ]));
 
-    await FileSaver.instance
-        .saveFile("MyPdf", await pdf.save(), "pdf", mimeType: MimeType.PDF);
+    await save("MyPdf", await pdf.save(), mimeType: MimeType.PDF);
   }
 
   Future<PageTheme> _myPageTheme(PdfPageFormat format) async {
@@ -226,29 +208,5 @@ class DataTablePdf implements IExport {
   @override
   void printDocument(List<PlutoColumn?> columns, List<PlutoRow?> rows) {
     // TODO: implement printDocument
-  }
-
-  @override
-  void localDownLoad(String csv) async {
-    print('CSV....$csv');
-    var content = base64Encode(csv.codeUnits);
-    var url = 'data:text/csv;base64,$content';
-    await launch(url);
-  }
-
-  @override
-  Future selectLocalFile(
-      {bool multiSelect = false, bool withData = false}) async {
-    var file = await CustomFilePicker.selectFile(
-        fileExt: FileExt.pdf, allowMultiple: multiSelect, withData: withData);
-    if (multiSelect) {
-      var files = [];
-      file.forEach((v) {
-        files.add(withData ? v.bytes : v.path);
-      });
-      return files;
-    } else {
-      return [withData ? file.bytes : file.path];
-    }
   }
 }

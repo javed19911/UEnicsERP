@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:pluto_grid/pluto_grid.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import 'data_table_csv.dart';
 import 'data_table_pdf.dart';
@@ -86,14 +87,48 @@ class _CustomDataTableState extends State<CustomDataTable> {
   }
 
   Widget footer(PlutoGridStateManager stateManager) {
-    return Row(
+    return ScreenTypeLayout(
+      mobile: mobileFooter(stateManager),
+      tablet: webFooter(stateManager),
+      desktop: webFooter(stateManager),
+      // ),
+    );
+  }
+
+  Widget mobileFooter(PlutoGridStateManager stateManager) {
+    return Column(
       children: [
-        buildDownloadCSVBtn(),
-        filePickerBtn(),
-        getPdfBtn(),
-        widget.rows != null
-            ? Flexible(child: PlutoPagination(stateManager))
-            : Container(),
+        Divider(),
+        // widget.rows != null ? PlutoPagination(stateManager) : Container(),
+        Flexible(
+          child: Row(
+            children: [
+              buildDownloadCSVBtn(),
+              filePickerBtn(),
+              getPdfBtn(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget webFooter(PlutoGridStateManager stateManager) {
+    return Column(
+      children: [
+        Divider(),
+        Expanded(
+          child: Row(
+            children: [
+              buildDownloadCSVBtn(),
+              filePickerBtn(),
+              getPdfBtn(),
+              widget.rows != null
+                  ? Flexible(child: PlutoPagination(stateManager))
+                  : Container(),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -119,7 +154,7 @@ class _CustomDataTableState extends State<CustomDataTable> {
       child: ElevatedButton(
         child: const Text('Pick Files'),
         onPressed: () async {
-          var files = await DataTableCsv().selectLocalFile(withData: true);
+          var files = await DataTableCsv().pickFile(withData: true);
           print(files);
         },
       ),

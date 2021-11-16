@@ -22,10 +22,10 @@ class Webservice {
   }
 
   //staging
-  // static String BASE_HOST_URL = "https://uenics-erp.herokuapp.com";
+  static String BASE_HOST_URL = "https://uenics-erp.herokuapp.com";
 
   //development
-  static String BASE_HOST_URL = "http://127.0.0.1:5000";
+  // static String BASE_HOST_URL = "http://127.0.0.1:5000";
 
   //production
   //static final String BASE_HOST_URL = "http://staging.praman.ai" ;

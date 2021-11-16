@@ -1,14 +1,17 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:csv/csv.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:file_saver/file_saver.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'custom_file_picker.dart';
 import 'i_export.dart';
 
-class DataTableCsv implements IExport {
+class DataTableCsv extends IExport {
+  DataTableCsv() : super(FileExt.csv);
+
   @override
   void export(
       String fileName, List<PlutoColumn?> columns, List<PlutoRow?> rows) async {
@@ -30,27 +33,11 @@ class DataTableCsv implements IExport {
       rows1.add(row);
     }
 
-//     await SimplePermissions.requestPermission(Permission.WriteExternalStorage);
-//     bool checkPermission = await SimplePermissions.checkPermission(
-//         Permission.WriteExternalStorage);
-//     if (checkPermission) {
-// //store file in documents folder
-//
-//       String dir =
-//           (await getExternalStorageDirectory()).absolute.path + "/documents";
-//       file = "$dir";
-//       print(LOGTAG + " FILE " + file);
-//       File f = new File(file + "filename.csv");
-
-// convert rows to String and write as csv file
-
     String csv = const ListToCsvConverter().convert(rows1);
-    //f.writeAsString(csv);
-    print('CSV....$csv');
-    var content = base64Encode(csv.codeUnits);
-    var url = 'data:text/csv;base64,$content';
-    await launch(url);
-    //localDownLoad(csv);
+    Uint8List bytes = Uint8List.fromList(csv.codeUnits);
+    List
+    bytes.
+    await save("MyCSV", bytes, mimeType: MimeType.CSV);
   }
 
   @override
@@ -63,27 +50,10 @@ class DataTableCsv implements IExport {
     // TODO: implement printDocument
   }
 
-  @override
   void localDownLoad(String csv) async {
     print('CSV....$csv');
     var content = base64Encode(csv.codeUnits);
     var url = 'data:text/csv;base64,$content';
     await launch(url);
-  }
-
-  @override
-  Future selectLocalFile(
-      {bool multiSelect = false, bool withData = false}) async {
-    var file = await CustomFilePicker.selectFile(
-        fileExt: FileExt.csv, allowMultiple: multiSelect, withData: withData);
-    if (multiSelect) {
-      var files = [];
-      file.forEach((v) {
-        files.add(withData ? v.bytes : v.path);
-      });
-      return files;
-    } else {
-      return [withData ? file.bytes : file.path];
-    }
   }
 }

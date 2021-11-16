@@ -160,13 +160,16 @@ class SearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SimpleEditText(
-      hintText: "Search",
-      fillColor: CustomColors.secondaryColor,
-      prefixIcon: Icon(Icons.search_rounded),
-      border: OutlineInputBorder(
-        borderSide: BorderSide.none,
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
+    return Container(
+      padding: EdgeInsets.only(top: 2, bottom: 2),
+      child: SimpleEditText(
+        hintText: "Search",
+        fillColor: CustomColors.secondaryColor,
+        prefixIcon: Icon(Icons.search_rounded),
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+        ),
       ),
     );
   }

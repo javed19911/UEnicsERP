@@ -18,7 +18,7 @@ class CustomFilePicker {
         allowedExtensions: [fileExt]);
 
     if (result != null) {
-      return result.files.first;
+      return result.files;
     } else {
       return null;
     }

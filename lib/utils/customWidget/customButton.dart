@@ -7,18 +7,22 @@ class RoundButton extends SimpleButton {
   final String text;
   final Color color;
   final Color textColor;
+  final double? minWidth;
+  final double? height;
 
   RoundButton(
       {Key? key,
       required this.onPressed,
       required this.text,
+      this.minWidth = 200,
+      this.height = 45,
       this.color = Colors.blue,
       this.textColor = Colors.white})
       : super(
           key: key,
           text: text,
-          minWidth: 200,
-          height: 45,
+          minWidth: minWidth,
+          height: height,
           color: color,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
